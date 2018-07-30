@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "500932675740",
+    "firebase_url": "https://mynot-2b4a3.firebaseio.com",
+    "project_id": "mynot-2b4a3",
+    "storage_bucket": "mynot-2b4a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500932675740:android:2cc48bede3993bc4",
+        "android_client_info": {
+          "package_name": "org.frocu.news.mynot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500932675740-u9ljls0ggq0brqnl8tpikmn62v621f5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.frocu.news.mynot",
+            "certificate_hash": "f7fb370483122d68b3c01c27684259aad01b5938"
+          }
+        },
+        {
+          "client_id": "500932675740-vum7aoda5krop9shaf6kmt8m9sdcijvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUCGFnyIEsmtjR84ScIhJQGGTY5vgQbBU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500932675740-vum7aoda5krop9shaf6kmt8m9sdcijvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
