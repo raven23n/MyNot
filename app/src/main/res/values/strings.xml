@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MyNot</string>
+    <string name="science">Ciencia</string>
+    <string name="autonomous_communities">C. Autónomas</string>
+    <string name="sports">Deportes</string>
+    <string name="economy">Economía</string>
+    <string name="international">Internacional</string>
+    <string name="spain">España</string>
+    <string name="technology">Tecnología</string>
+    <string name="last_news">Últimas Noticias</string>
 </resources>
