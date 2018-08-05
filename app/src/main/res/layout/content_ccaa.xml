@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_andalucia"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/science_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/science"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/science_title"
+                        android:layout_below="@+id/science_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/science"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_autonomous_communities"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/autonomous_communities_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/autonomous_communities"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/autonomous_communities_title"
+                        android:layout_below="@+id/autonomous_communities_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/autonomous_communities"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_sports"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/sports_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/sports"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/sports_title"
+                        android:layout_below="@+id/sports_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/sports"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_economy"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/economy_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/economy"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/economy_title"
+                        android:layout_below="@+id/economy_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/economy"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_international"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/international_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/international"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/international_title"
+                        android:layout_below="@+id/international_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/international"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_spain"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/spain_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/spain"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/spain_title"
+                        android:layout_below="@+id/spain_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/spain"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_technology"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/technology_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/technology"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/technology_title"
+                        android:layout_below="@+id/technology_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/technology"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_last_news"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/last_news_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:padding="8dp"
+                        android:background="@drawable/economy"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/last_news_title"
+                        android:layout_below="@+id/last_news_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/last_news"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
