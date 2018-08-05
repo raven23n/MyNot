@@ -9,9 +9,22 @@
     <string name="technology">Tecnología</string>
     <string name="last_news">Últimas Noticias</string>
 
-    <string name="">Últimas Noticias</string>
-    <string name="">Últimas Noticias</string>
-    <string name="">Últimas Noticias</string>
-    <string name="">Últimas Noticias</string>
-    <string name="">Últimas Noticias</string>
+    <string name="andalucia">Andalucía</string>
+    <string name="aragon">Aragón</string>
+    <string name="asturias">Asturias</string>
+    <string name="cantabria">Cantabria</string>
+    <string name="castillalamancha">Castilla-La Mancha</string>
+    <string name="castillaleon">Castilla y León</string>
+    <string name="catalunya">Cataluña</string>
+    <string name="ceutamelilla">Ceuta y Melilla</string>
+    <string name="comunidadvalenciana">C. Valenciana</string>
+    <string name="extremadura">Extremadura</string>
+    <string name="galicia">Galicia</string>
+    <string name="islasbaleares">Islas Baleares</string>
+    <string name="islascanarias">Islas Canarias</string>
+    <string name="larioja">La Rioja</string>
+    <string name="madrid">Madrid</string>
+    <string name="murcia">Murcia</string>
+    <string name="navarra">Navarra</string>
+    <string name="paisvasco">País Vasco</string>
 </resources>

@@ -94,7 +94,8 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:text="@string/autonomous_communities"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:onClick="openCCAA"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -350,7 +351,7 @@
                         android:layout_height="100dp"
                         android:layout_width="100dp"
                         android:padding="8dp"
-                        android:background="@drawable/economy"/>
+                        android:background="@drawable/last_news"/>
 
                     <TextView
                         android:gravity="center"
