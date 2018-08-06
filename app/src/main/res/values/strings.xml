@@ -27,4 +27,7 @@
     <string name="murcia">Murcia</string>
     <string name="navarra">Navarra</string>
     <string name="paisvasco">País Vasco</string>
+
+    <string name="drawer_open">navigation drawer abierto</string>
+    <string name="drawer_close">navigation drawer cerrado</string>
 </resources>

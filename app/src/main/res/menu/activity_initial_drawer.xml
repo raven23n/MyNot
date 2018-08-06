@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="Mis Listas">
+            <menu>
+                <item
+                    android:id="@+id/nav_films"
+                    android:title="Peliculas" />
+                <item
+                    android:id="@+id/nav_tvshows"
+                    android:title="Series TV" />
+                <item
+                    android:id="@+id/nav_games"
+                    android:title="Videojuegos" />
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Otras Opciones">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:icon="@android:drawable/ic_dialog_info"
+                android:title="Info" />
+        </menu>
+    </item>
+</menu>
+    <!--android:icon="@drawable/films"-->

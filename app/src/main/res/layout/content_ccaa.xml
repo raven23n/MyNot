@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    app:ignore="NamespaceTypo">
+    android:layout_width="match_parent">
     <LinearLayout
         android:gravity="center"
         android:layout_height="match_parent"
@@ -37,9 +36,9 @@
                         android:id="@+id/andalucia_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/andalucia"/>
+                        android:background="@drawable/andalucia"/>
 
                     <TextView
                         android:gravity="center"
@@ -79,9 +78,9 @@
                         android:id="@+id/aragon_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/aragon"/>
+                        android:background="@drawable/aragon"/>
 
                     <TextView
                         android:gravity="center"
@@ -127,9 +126,9 @@
                         android:id="@+id/asturias_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/asturias"/>
+                        android:background="@drawable/asturias"/>
 
                     <TextView
                         android:gravity="center"
@@ -169,9 +168,9 @@
                         android:id="@+id/cantabria_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/cantabria"/>
+                        android:background="@drawable/cantabria"/>
 
                     <TextView
                         android:gravity="center"
@@ -217,9 +216,9 @@
                         android:id="@+id/castillalamancha_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/castillalamancha"/>
+                        android:background="@drawable/castillalamancha"/>
 
                     <TextView
                         android:gravity="center"
@@ -259,9 +258,9 @@
                         android:id="@+id/castillaleon_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/castillaleon"/>
+                        android:background="@drawable/castillaleon"/>
 
                     <TextView
                         android:gravity="center"
@@ -307,9 +306,9 @@
                         android:id="@+id/catalunya_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/catalunya"/>
+                        android:background="@drawable/catalunya"/>
 
                     <TextView
                         android:gravity="center"
@@ -349,9 +348,9 @@
                         android:id="@+id/ceutamelilla_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/ceutamelilla"/>
+                        android:background="@drawable/ceutamelilla"/>
 
                     <TextView
                         android:gravity="center"
@@ -397,9 +396,9 @@
                         android:id="@+id/comunidadvalenciana_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/comunidadvalenciana"/>
+                        android:background="@drawable/comunidadvalenciana"/>
 
                     <TextView
                         android:gravity="center"
@@ -439,9 +438,9 @@
                         android:id="@+id/extremadura_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/extremadura"/>
+                        android:background="@drawable/extremadura"/>
 
                     <TextView
                         android:gravity="center"
@@ -487,9 +486,9 @@
                         android:id="@+id/galicia_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/galicia"/>
+                        android:background="@drawable/galicia"/>
 
                     <TextView
                         android:gravity="center"
@@ -529,9 +528,9 @@
                         android:id="@+id/islasbaleares_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/islasbaleares"/>
+                        android:background="@drawable/islasbaleares"/>
 
                     <TextView
                         android:gravity="center"
@@ -577,9 +576,9 @@
                         android:id="@+id/islascanarias_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/islascanarias"/>
+                        android:background="@drawable/islascanarias"/>
 
                     <TextView
                         android:gravity="center"
@@ -619,9 +618,9 @@
                         android:id="@+id/larioja_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/larioja"/>
+                        android:background="@drawable/larioja"/>
 
                     <TextView
                         android:gravity="center"
@@ -667,9 +666,9 @@
                         android:id="@+id/madrid_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/madrid"/>
+                        android:background="@drawable/madrid"/>
 
                     <TextView
                         android:gravity="center"
@@ -709,9 +708,9 @@
                         android:id="@+id/murcia_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/murcia"/>
+                        android:background="@drawable/murcia"/>
 
                     <TextView
                         android:gravity="center"
@@ -757,9 +756,9 @@
                         android:id="@+id/navarra_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/navarra"/>
+                        android:background="@drawable/navarra"/>
 
                     <TextView
                         android:gravity="center"
@@ -799,9 +798,9 @@
                         android:id="@+id/paisvasco_icon"
                         android:layout_gravity="center_horizontal|top"
                         android:layout_height="100dp"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/paisvasco"/>
+                        android:background="@drawable/paisvasco"/>
 
                     <TextView
                         android:gravity="center"
