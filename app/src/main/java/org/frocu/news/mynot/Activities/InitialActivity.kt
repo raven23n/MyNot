@@ -10,19 +10,27 @@ import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import org.frocu.news.mynot.Databases.NewspapersDatabase
+import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
+import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 
 class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     var sectionDatabase: SectionDatabase = SectionDatabaseFirestore()
+    lateinit var newspapersDatabase: NewspapersDatabase
     lateinit var cardViewAutonomousCommunities: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
-//        sectionDatabase.readSections()
+        var section : String = "Ciencia"
+        newspapersDatabase = NewspapersDatabaseFirestore(section)
+//        var newspapersListener : NewspapersDatabase.NewspapersListener = NewspapersDatabase.NewspapersListener()
+        sectionDatabase.readSections()
+        newspapersDatabase.readNewspapers()
     }
 
     override fun onResume() {
@@ -42,7 +50,7 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        //val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+
         val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
         nav_view.setNavigationItemSelectedListener(this)
     }
