@@ -10,6 +10,8 @@ import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import kotlinx.android.synthetic.main.content_ccaa.*
+import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.Databases.SectionDatabase
@@ -21,25 +23,28 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     var sectionDatabase: SectionDatabase = SectionDatabaseFirestore()
     lateinit var newspapersDatabase: NewspapersDatabase
-    lateinit var cardViewAutonomousCommunities: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initializeLayout()
+        initializeButtons()
+
         var section : String = "Ciencia"
         newspapersDatabase = NewspapersDatabaseFirestore(section)
 //        var newspapersListener : NewspapersDatabase.NewspapersListener = NewspapersDatabase.NewspapersListener()
         sectionDatabase.readSections()
         newspapersDatabase.readNewspapers()
     }
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override fun onResume() {
-        super.onResume()
-        cardViewAutonomousCommunities = findViewById(R.id.cardview_autonomous_communities)
-        cardViewAutonomousCommunities.setOnClickListener{
-            openCCAA()
-        }
-
+    fun initializeLayout(){
         val toolbar = findViewById(R.id.initial_toolbar) as Toolbar
         setSupportActionBar(toolbar)
         // Navigation Drawer
@@ -54,8 +59,18 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
         nav_view.setNavigationItemSelectedListener(this)
     }
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    fun initializeButtons(){
+        /*        cardViewAutonomousCommunities = findViewById(R.id.cardview_autonomous_communities)
+        cardViewAutonomousCommunities.setOnClickListener{ openCCAA() }*/
+        cardview_science.setOnClickListener{}
+        cardview_autonomous_communities.setOnClickListener{ openCCAA() }
+        cardview_sports.setOnClickListener{}
+        cardview_economy.setOnClickListener{}
+        cardview_international.setOnClickListener{}
+        cardview_spain.setOnClickListener{}
+        cardview_technology.setOnClickListener{}
+        cardview_last_news.setOnClickListener{}
     }
 
     fun openCCAA () {
