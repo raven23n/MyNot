@@ -9,7 +9,7 @@
     android:layout_marginStart="10sp"
     android:layout_marginTop="5sp"
     android:layout_marginBottom="5sp"
-    android:id="@+id/individual_newpaper_background">
+    android:id="@+id/individual_newspaper_background">
     <ImageView
         android:id="@+id/image_individual_newspaper"
         android:layout_width="70sp"
@@ -21,12 +21,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="2dp"
-        android:id="@+id/individual_newpaper"
+        android:id="@+id/individual_newspaper"
         android:layout_alignBottom="@+id/image_individual_newspaper"
         android:layout_alignTop="@+id/image_individual_newspaper"
         android:layout_toEndOf="@+id/image_individual_newspaper">
         <TextView
-            android:id="@+id/title_individual"
+            android:id="@+id/title_individual_newspaper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
