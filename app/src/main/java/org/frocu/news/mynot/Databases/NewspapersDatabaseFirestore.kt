@@ -11,7 +11,8 @@ import com.google.firebase.firestore.QuerySnapshot
 import org.frocu.news.mynot.POJO.Newspaper
 import org.jetbrains.annotations.NotNull
 
-class NewspapersDatabaseFirestore(val section: String) : NewspapersDatabase{
+class NewspapersDatabaseFirestore(val section: String, val escuchador : NewspapersDatabase.NewspapersListener)
+    : NewspapersDatabase{
 
     private lateinit var newpapersCollectionReference : CollectionReference
 
@@ -21,26 +22,6 @@ class NewspapersDatabaseFirestore(val section: String) : NewspapersDatabase{
     }
 
     override fun readNewspaper(newspapersId: String, newspapersListener: NewspapersDatabase.NewspapersListener) {
-/*        val docRef = db.collection("notes").document("note-id")
-        docRef.get().addOnCompleteListener(OnCompleteListener<DocumentSnapshot> { task ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: " + task.result.data)
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            } else {
-                Log.d(TAG, "get failed with ", task.exception)
-            }
-        })
-
-        // custom object
-        val docRef = db.collection("notes").document("note-id")
-        docRef.get().addOnSuccessListener(OnSuccessListener<DocumentSnapshot> { documentSnapshot ->
-            val note = documentSnapshot.toObject(Note::class.java)
-        })*/
-
         newpapersCollectionReference.document(newspapersId).get().addOnCompleteListener(
             object:OnCompleteListener <DocumentSnapshot>{
                 override fun onComplete(@NotNull task:Task<DocumentSnapshot>){
@@ -65,6 +46,15 @@ class NewspapersDatabaseFirestore(val section: String) : NewspapersDatabase{
                     if (task.isSuccessful) {
                         for (newspaper in task.result) {
                             Log.d("Recuperar documentos", newspaper.id + " => " + newspaper.data)
+                            var newspaperReceived: Newspaper = Newspaper(
+                                    nameNewspaper = newspaper.id,
+                                    stateNewspaper = newspaper.data.getValue("estado") as Long,
+                                    imageNewspaper = newspaper.data.getValue("imagen") as String,
+                                    nameClaseParserNewspaper = newspaper.data.getValue("nombreClaseParser") as String,
+                                    urlNewspaper =  newspaper.data.getValue("url") as String
+                            )
+                            escuchador.onRespuesta(newspaperReceived)
+                            newspapers.add(newspaperReceived)
                         }
                     } else {
                         Log.d("Recuperar documentos", "Error getting documents: ", task.exception)

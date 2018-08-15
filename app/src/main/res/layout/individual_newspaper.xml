@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/individual_border"
+    android:padding="1dp"
+    android:layout_marginEnd="10sp"
+    android:layout_marginStart="10sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginBottom="5sp"
+    android:id="@+id/individual_newpaper_background">
+    <ImageView
+        android:id="@+id/image_individual_newspaper"
+        android:layout_width="70sp"
+        android:layout_height="90sp"
+        android:src="@drawable/no_image"
+        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="2dp"
+        android:id="@+id/individual_newpaper"
+        android:layout_alignBottom="@+id/image_individual_newspaper"
+        android:layout_alignTop="@+id/image_individual_newspaper"
+        android:layout_toEndOf="@+id/image_individual_newspaper">
+        <TextView
+            android:id="@+id/title_individual"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="2dp"
+            android:text="@string/newspaper_test"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+    </LinearLayout>
+</RelativeLayout>

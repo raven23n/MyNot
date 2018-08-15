@@ -28,6 +28,8 @@
     <string name="navarra">Navarra</string>
     <string name="paisvasco">País Vasco</string>
 
+    <string name="newspaper_test">Periódico de Prueba</string>
+
     <string name="drawer_open">navigation drawer abierto</string>
     <string name="drawer_close">navigation drawer cerrado</string>
 </resources>
