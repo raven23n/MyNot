@@ -14,6 +14,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.content_ccaa.*
 import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
+import org.frocu.news.mynot.Databases.NewspapersDatabase.NewspapersListener
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
@@ -34,13 +35,16 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onResume()
         initializeLayout()
         initializeButtons()
-
-        var section : String = "Ciencia"
+        var newspapersList : ArrayList <Newspaper> = ArrayList()
+        val section : String = "Ciencia"
         newspapersDatabase = NewspapersDatabaseFirestore(section)
 //        var newspapersListener : NewspapersDatabase.NewspapersListener = NewspapersDatabase.NewspapersListener()
         sectionDatabase.readSections()
-        newspapersDatabase.readNewspapers()
-
+        newspapersList = newspapersDatabase.readNewspapers()
+        Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
+        for (newsp in newspapersList){
+            Log.d("Periodico ", "-"+newsp.nameNewspaper +"-")
+        }
 
     }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {

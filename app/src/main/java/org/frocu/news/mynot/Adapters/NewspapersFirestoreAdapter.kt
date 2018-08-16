@@ -23,8 +23,7 @@ class NewspapersFirestoreAdapter(
         var context : Context,
         var query : Query
 )
-    : RecyclerView.Adapter<NewspapersFirestoreAdapter.ViewHolder>(),
-        EventListener<QuerySnapshot> {
+    : RecyclerView.Adapter<NewspapersFirestoreAdapter.ViewHolder>(){
     val TAG = "Mislugares"
     var items : ArrayList <DocumentSnapshot> = ArrayList()
     lateinit var registration : ListenerRegistration
@@ -62,42 +61,6 @@ class NewspapersFirestoreAdapter(
 
     fun setOnItemClickListener(onClick: View.OnClickListener) {
         onClickListener = onClick
-    }
-
-    fun startListening() {
-        items = ArrayList()
-        registration = query.addSnapshotListener(this)
-    }
-
-    fun stopListening() {
-        registration.remove()
-    }
-
-    override fun onEvent(snapshots: QuerySnapshot?, e: FirebaseFirestoreException?) {
-        if (e != null) {
-            Log.w(TAG, "error al recibir evento", e)
-            return
-        }
-        for (dc in snapshots!!.documentChanges) {
-            val pos = dc.newIndex
-            val oldPos = dc.oldIndex
-            when (dc.type) {
-                DocumentChange.Type.ADDED -> {
-                    items.add(pos, dc.document)
-                    notifyItemInserted(pos)
-                }
-                DocumentChange.Type.REMOVED -> {
-                    items.removeAt(oldPos)
-                    notifyItemRemoved(oldPos)
-                }
-                DocumentChange.Type.MODIFIED -> {
-                    items.removeAt(oldPos)
-                    items.add(pos, dc.document)
-                    notifyItemRangeChanged(min(pos, oldPos), abs(pos - oldPos) + 1)
-                }
-                else -> Log.w(TAG, "Tipo de cambio desconocido", e)
-            }
-        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

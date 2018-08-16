@@ -11,7 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import org.frocu.news.mynot.POJO.Newspaper
 import org.jetbrains.annotations.NotNull
 
-class NewspapersDatabaseFirestore(val section: String, val escuchador : NewspapersDatabase.NewspapersListener)
+class NewspapersDatabaseFirestore(val section: String)
     : NewspapersDatabase{
 
     private lateinit var newpapersCollectionReference : CollectionReference
@@ -53,13 +53,14 @@ class NewspapersDatabaseFirestore(val section: String, val escuchador : Newspape
                                     nameClaseParserNewspaper = newspaper.data.getValue("nombreClaseParser") as String,
                                     urlNewspaper =  newspaper.data.getValue("url") as String
                             )
-                            escuchador.onRespuesta(newspaperReceived)
+                            //escuchador.onRespuesta(newspaperReceived)
                             newspapers.add(newspaperReceived)
                         }
                     } else {
                         Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                     }
                 })
+        Log.d("Documentos ", "-"+newspapers.size.toString() + "=>")
         return newspapers
     }
 }
