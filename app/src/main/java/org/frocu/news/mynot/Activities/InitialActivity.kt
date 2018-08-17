@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.content_ccaa.*
 import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
-import org.frocu.news.mynot.Databases.NewspapersDatabase.NewspapersListener
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
@@ -23,7 +20,7 @@ import org.frocu.news.mynot.R
 
 class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
-    var sectionDatabase: SectionDatabase = SectionDatabaseFirestore()
+    //var sectionDatabase: SectionDatabase = SectionDatabaseFirestore()
     lateinit var newspapersDatabase: NewspapersDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,19 +32,10 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onResume()
         initializeLayout()
         initializeButtons()
-        var newspapersList : ArrayList <Newspaper> = ArrayList()
-        val section : String = "Ciencia"
-        newspapersDatabase = NewspapersDatabaseFirestore(section)
-//        var newspapersListener : NewspapersDatabase.NewspapersListener = NewspapersDatabase.NewspapersListener()
-        sectionDatabase.readSections()
-        newspapersList = newspapersDatabase.readNewspapers()
-        Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
-        for (newsp in newspapersList){
-            Log.d("Periodico ", "-"+newsp.nameNewspaper +"-")
-        }
-
+        //sectionDatabase.readSections()
     }
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -68,20 +56,45 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     fun initializeButtons(){
-        /*        cardViewAutonomousCommunities = findViewById(R.id.cardview_autonomous_communities)
-        cardViewAutonomousCommunities.setOnClickListener{ openCCAA() }*/
-        cardview_science.setOnClickListener{}
+        cardview_science.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.science_db))
+        }
         cardview_autonomous_communities.setOnClickListener{ openCCAA() }
-        cardview_sports.setOnClickListener{}
-        cardview_economy.setOnClickListener{}
-        cardview_international.setOnClickListener{}
-        cardview_spain.setOnClickListener{}
-        cardview_technology.setOnClickListener{}
-        cardview_last_news.setOnClickListener{}
+        cardview_sports.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.sports_db))
+        }
+        cardview_economy.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.economy_db))
+        }
+        cardview_international.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.international_db))
+        }
+        cardview_spain.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.spain_db))
+        }
+        cardview_technology.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.technology_db))
+        }
+        cardview_last_news.setOnClickListener{
+            searchNewspapersInDB(resources.getString(R.string.last_news_db))
+        }
     }
 
     fun openCCAA () {
         var intent : Intent = Intent(this, AutonomousCommunitiesActivity::class.java)
         startActivity (intent)
+    }
+
+    fun searchNewspapersInDB(section : String){
+        var newspapersListener = object:NewspapersDatabase.NewspapersListener{
+            override fun onRespuesta(newspapersList: ArrayList<Newspaper>) {
+                Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
+                for (newsp in newspapersList){
+                    Log.d("Periodicos InitialAct ", "-"+newsp.nameNewspaper +"-")
+                }
+            }
+        }
+        newspapersDatabase = NewspapersDatabaseFirestore(section)
+        newspapersDatabase.readNewspapers(newspapersListener = newspapersListener)
     }
 }

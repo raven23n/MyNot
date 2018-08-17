@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyNot</string>
+    <!-- CardViews Names-->
     <string name="science">Ciencia</string>
     <string name="autonomous_communities">C. Autónomas</string>
     <string name="sports">Deportes</string>
@@ -28,6 +29,37 @@
     <string name="navarra">Navarra</string>
     <string name="paisvasco">País Vasco</string>
 
+    <!-- DB Names-->
+    <string name="science_db">Ciencia</string>
+    <string name="autonomous_communities_db">ComunidadesAutonomas</string>
+    <string name="sports_db">Deportes</string>
+    <string name="economy_db">Economía</string>
+    <string name="international_db">Internacional</string>
+    <string name="spain_db">Nacional</string>
+    <string name="technology_db">Tecnología</string>
+    <string name="last_news_db">UltimasNoticias</string>
+
+    <string name="andalucia_db">Andalucia</string>
+    <string name="aragon_db">Aragon</string>
+    <string name="asturias_db">Asturias</string>
+    <string name="cantabria_db">Cantabria</string>
+    <string name="castillalamancha_db">CastillaLaMancha</string>
+    <string name="castillaleon_db">Castilla y León</string>
+    <string name="catalunya_db">Cataluna</string>
+    <string name="ceutamelilla_db">CeutaMelilla</string>
+    <string name="comunidadvalenciana_db">ComunidadValenciana</string>
+    <string name="extremadura_db">Extremadura</string>
+    <string name="galicia_db">Galicia</string>
+    <string name="islasbaleares_db">Baleares</string>
+    <string name="islascanarias_db">Canarias</string>
+    <string name="larioja_db">Rioja</string>
+    <string name="madrid_db">Madrid</string>
+    <string name="murcia_db">Murcia</string>
+    <string name="navarra_db">Navarra</string>
+    <string name="paisvasco_db">PaísVasco</string>
+
+    <string name ="country_db">Spain</string>
+    <!-- Others-->
     <string name="newspaper_test">Periódico de Prueba</string>
 
     <string name="drawer_open">navigation drawer abierto</string>

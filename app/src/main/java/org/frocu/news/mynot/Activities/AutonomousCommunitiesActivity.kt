@@ -1,17 +1,17 @@
 package org.frocu.news.mynot.Activities
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
-import android.support.v7.widget.Toolbar
-import android.view.View
+import android.util.Log
 import kotlinx.android.synthetic.main.content_ccaa.*
+import org.frocu.news.mynot.Databases.NewspapersDatabase
+import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
+import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 
 class AutonomousCommunitiesActivity : AppCompatActivity() {
+
+    lateinit var newspapersDatabase: NewspapersDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,23 +28,40 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun initializeButtons(){
-        cardview_andalucia.setOnClickListener{}
-        cardview_aragon.setOnClickListener{}
-        cardview_asturias.setOnClickListener{}
-        cardview_cantabria.setOnClickListener{}
-        cardview_castillalamancha.setOnClickListener{}
-        cardview_castillaleon.setOnClickListener{}
-        cardview_catalunya.setOnClickListener{}
-        cardview_ceutamelilla.setOnClickListener{}
-        cardview_comunidadvalenciana.setOnClickListener{}
-        cardview_extremadura.setOnClickListener{}
-        cardview_galicia.setOnClickListener{}
-        cardview_islasbaleares.setOnClickListener{}
-        cardview_islascanarias.setOnClickListener{}
-        cardview_larioja.setOnClickListener{}
-        cardview_madrid.setOnClickListener{}
-        cardview_murcia.setOnClickListener{}
-        cardview_navarra.setOnClickListener{}
-        cardview_paisvasco.setOnClickListener{}
+        cardview_andalucia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.andalucia_db)) }
+        cardview_aragon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.aragon_db)) }
+        cardview_asturias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.asturias_db)) }
+        cardview_cantabria.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.cantabria_db)) }
+        cardview_castillalamancha.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillalamancha_db)) }
+        cardview_castillaleon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillaleon_db)) }
+        cardview_catalunya.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.catalunya)) }
+        cardview_ceutamelilla.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.ceutamelilla_db)) }
+        cardview_comunidadvalenciana.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.comunidadvalenciana_db)) }
+        cardview_extremadura.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.extremadura_db)) }
+        cardview_galicia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.galicia_db)) }
+        cardview_islasbaleares.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islasbaleares_db)) }
+        cardview_islascanarias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islascanarias_db)) }
+        cardview_larioja.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.larioja_db)) }
+        cardview_madrid.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.madrid_db)) }
+        cardview_murcia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.murcia_db)) }
+        cardview_navarra.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.navarra_db)) }
+        cardview_paisvasco.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.paisvasco_db)) }
+    }
+
+    fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
+        newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities_db))
+        var countrySection = resources.getString(R.string.country_db)
+        var newspapersListener = object: NewspapersDatabase.NewspapersListener{
+            override fun onRespuesta(newspapersList: ArrayList<Newspaper>) {
+                Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
+                for (newsp in newspapersList){
+                    Log.d("Periodicos InitialAct ", "-"+newsp.nameNewspaper +"-")
+                }
+            }
+        }
+
+        newspapersDatabase.readCCAANewspapers(country = countrySection,
+                autonomous_communities = autonomousCommunitySection,
+                newspapersListener = newspapersListener)
     }
 }
