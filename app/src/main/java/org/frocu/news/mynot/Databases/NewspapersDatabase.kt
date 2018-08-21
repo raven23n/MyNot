@@ -4,7 +4,8 @@ import org.frocu.news.mynot.POJO.Newspaper
 
 interface NewspapersDatabase {
     public interface NewspapersListener {
-        fun onRespuesta(newspapersList: ArrayList<Newspaper>)
+//        fun onRespuesta(newspapersList: ArrayList<Newspaper>)
+        fun onRespuesta(endOfQuery: Boolean)
     }
     public fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener)
     public fun readCCAANewspapers(country:String,

@@ -6,8 +6,8 @@ import android.util.Log
 import kotlinx.android.synthetic.main.content_ccaa.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
-import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 
 class AutonomousCommunitiesActivity : AppCompatActivity() {
 
@@ -51,11 +51,14 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
         newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities_db))
         var countrySection = resources.getString(R.string.country_db)
-        var newspapersListener = object: NewspapersDatabase.NewspapersListener{
-            override fun onRespuesta(newspapersList: ArrayList<Newspaper>) {
-                Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
-                for (newsp in newspapersList){
-                    Log.d("Periodicos InitialAct ", "-"+newsp.nameNewspaper +"-")
+        var newspapersListener = object:NewspapersDatabase.NewspapersListener{
+            override fun onRespuesta(endOfQuery: Boolean) {
+                Log.d("onRespuesta", "Entro en CCAA onRespuesta")
+                //Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
+                if (endOfQuery) {
+                    for (newsp in newspapers) {
+                        Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
+                    }
                 }
             }
         }

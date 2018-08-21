@@ -11,19 +11,12 @@ import android.widget.TextView
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import com.google.firebase.firestore.DocumentSnapshot
-import android.util.Log
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import java.lang.Math.min
-import java.lang.Math.abs
 
 
-class NewspapersFirestoreAdapter(
-        var context : Context,
-        var query : Query
+class NewspapersAdapter(
+        var context : Context
 )
-    : RecyclerView.Adapter<NewspapersFirestoreAdapter.ViewHolder>(){
+    : RecyclerView.Adapter<NewspapersAdapter.ViewHolder>(){
     val TAG = "Mislugares"
     var items : ArrayList <DocumentSnapshot> = ArrayList()
     lateinit var registration : ListenerRegistration
@@ -32,17 +25,16 @@ class NewspapersFirestoreAdapter(
 
     init{
         items = ArrayList<DocumentSnapshot>()
-        this.query = query
         inflador = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewspapersFirestoreAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewspapersAdapter.ViewHolder {
         val v = inflador.inflate(R.layout.individual_newspaper, null)
         v.setOnClickListener(onClickListener)
-        return NewspapersFirestoreAdapter.ViewHolder(v)
+        return NewspapersAdapter.ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: NewspapersFirestoreAdapter.ViewHolder, posicion: Int) {
+    override fun onBindViewHolder(holder: NewspapersAdapter.ViewHolder, posicion: Int) {
         val lugar = getItem(posicion)
 //        personalizaVista(holder, lugar)
     }

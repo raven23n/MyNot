@@ -3,6 +3,7 @@ package org.frocu.news.mynot.Activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.sax.EndElementListener
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -17,6 +18,7 @@ import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 
 class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -87,10 +89,13 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     fun searchNewspapersInDB(section : String){
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
-            override fun onRespuesta(newspapersList: ArrayList<Newspaper>) {
-                Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
-                for (newsp in newspapersList){
-                    Log.d("Periodicos InitialAct ", "-"+newsp.nameNewspaper +"-")
+            override fun onRespuesta(endOfQuery: Boolean) {
+                Log.d("onRespuesta", "Entro en Initial onRespuesta")
+                //Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
+                if (endOfQuery) {
+                    for (newsp in newspapers) {
+                        Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
+                    }
                 }
             }
         }

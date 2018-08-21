@@ -10,26 +10,30 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.POJO.newspaperEmpty
+import org.frocu.news.mynot.Singletons.NewspapersList
+import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.jetbrains.annotations.NotNull
 
 class NewspapersDatabaseFirestore(val section: String)
     : NewspapersDatabase{
 
-    private lateinit var newpapersCollectionReference : CollectionReference
+    private var newpapersCollectionReference : CollectionReference
+    var endOfQuery: Boolean
 
     init {
         var sectionDB:FirebaseFirestore = FirebaseFirestore.getInstance()
         newpapersCollectionReference = sectionDB.collection(section)
+        endOfQuery = false
     }
 
-    override fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener) {
-        var newspapers : ArrayList <Newspaper> = ArrayList()
-        //Recuperar todos los documentos de una Collection
+    override fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener){
+        newspapers.clear()
         newpapersCollectionReference
                 .get()
                 .addOnCompleteListener(
                         object: OnCompleteListener<QuerySnapshot> {
                             override fun onComplete(task: Task<QuerySnapshot>) {
+                                var newspapersTask : ArrayList <Newspaper> = ArrayList()
                                 if (task.isSuccessful) {
                                     for (newspapersDocument in task.result.documents) {
                                         var newspaperReceived = Newspaper(
@@ -39,31 +43,26 @@ class NewspapersDatabaseFirestore(val section: String)
                                                 nameClaseParserNewspaper = newspapersDocument.data?.getValue("nombreClaseParser") as String,
                                                 urlNewspaper =  newspapersDocument.data?.getValue("url") as String
                                         )
-                                        Log.d("Recuperar documentos:",
-                                                "=>" +newspaperReceived.nameNewspaper+"<="
-                                                        + " Estado:-" + newspaperReceived.stateNewspaper + "-"
-                                                        + " Imagen:-" + newspaperReceived.imageNewspaper + "-"
-                                                        + " Url:-" + newspaperReceived.urlNewspaper + "-"
-                                        )
-                                        newspapers.add(newspaperReceived)
+                                        newspapersTask.add(newspaperReceived)
 
                                     }
                                 } else {
-                                    //newspapers.add(newspaperEmpty)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
-                                newspapersListener.onRespuesta(newspapers)
-                                Log.d("Documentos onComplete", "-"+newspapers.size.toString() + "=>")
+                                if(task.isComplete){
+                                    newspapers = newspapersTask
+                                    newspapersListener.onRespuesta(true)
+                                }
                             }
                         }
                 )
-        Log.d("Documentos ", "-"+newspapers.size.toString() + "=>")
     }
+
 
     override fun readCCAANewspapers(country:String,
                                     autonomous_communities: String,
                                     newspapersListener: NewspapersDatabase.NewspapersListener) {
-        var newspapers : ArrayList <Newspaper> = ArrayList()
+        newspapers.clear()
         var newpapersCollectionReferenceCCAA = newpapersCollectionReference.
                 document(country).
                 collection(autonomous_communities)
@@ -73,6 +72,7 @@ class NewspapersDatabaseFirestore(val section: String)
                 .addOnCompleteListener(
                         object: OnCompleteListener<QuerySnapshot> {
                             override fun onComplete(task: Task<QuerySnapshot>) {
+                                var newspapersTask : ArrayList <Newspaper> = ArrayList()
                                 if (task.isSuccessful) {
                                     for (newspapersDocument in task.result.documents) {
                                         var newspaperReceived = Newspaper(
@@ -82,41 +82,17 @@ class NewspapersDatabaseFirestore(val section: String)
                                                 nameClaseParserNewspaper = newspapersDocument.data?.getValue("nombreClaseParser") as String,
                                                 urlNewspaper =  newspapersDocument.data?.getValue("url") as String
                                         )
-                                        Log.d("Recuperar documentos:",
-                                                "=>" +newspaperReceived.nameNewspaper+"<="
-                                                        + " Estado:-" + newspaperReceived.stateNewspaper + "-"
-                                                        + " Imagen:-" + newspaperReceived.imageNewspaper + "-"
-                                                        + " Url:-" + newspaperReceived.urlNewspaper + "-"
-                                        )
-                                        newspapers.add(newspaperReceived)
-
+                                        newspapersTask.add(newspaperReceived)
                                     }
                                 } else {
-                                    //newspapers.add(newspaperEmpty)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
-                                newspapersListener.onRespuesta(newspapers)
-                                Log.d("Documentos onComplete", "-"+newspapers.size.toString() + "=>")
+                                if(task.isComplete){
+                                    newspapers = newspapersTask
+                                    newspapersListener.onRespuesta(true)
+                                }
                             }
                         }
                 )
-        Log.d("Documentos ", "-"+newspapers.size.toString() + "=>")
     }
 }
-/*
-override fun readNewspaper(newspapersId: String, newspapersListener: NewspapersDatabase.NewspapersListener) {
-    newpapersCollectionReference.document(newspapersId).get().addOnCompleteListener(
-            object:OnCompleteListener <DocumentSnapshot>{
-                override fun onComplete(@NotNull task:Task<DocumentSnapshot>){
-                    if(task.isSuccessful()){
-                        var newspaper: Newspaper? = task.getResult().toObject(Newspaper::class.java)
-                        Log.d("Newspaper Recuperado:", newspaper?.urlNewspaper)
-                        //newspapersListener.onRespuesta(newspaper)
-                    }else{
-                        //newspapersListener.onRespuesta(newspaperEmpty)
-                    }
-                }
-            }
-    )
-}
-*/
