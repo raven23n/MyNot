@@ -1,5 +1,7 @@
 package org.frocu.news.mynot.Activities
 
+import android.app.ProgressDialog
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +21,7 @@ import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
+import java.lang.Thread.sleep
 
 class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -88,6 +91,7 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     fun searchNewspapersInDB(section : String){
+        //changeLoaded(false)
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en Initial onRespuesta")
@@ -96,10 +100,17 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     for (newsp in newspapers) {
                         Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
                     }
+//                    changeLoaded(true)
+                    startNewspapersActivity()
                 }
             }
         }
         newspapersDatabase = NewspapersDatabaseFirestore(section)
         newspapersDatabase.readNewspapers(newspapersListener = newspapersListener)
+    }
+
+    fun startNewspapersActivity(){
+        val intent = Intent(this, NewspapersActivity::class.java)
+        startActivity(intent)
     }
 }

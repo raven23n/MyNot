@@ -16,6 +16,7 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.NewspapersList
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 
 
@@ -24,25 +25,14 @@ class NewspapersAdapter(
 )
     : RecyclerView.Adapter<NewspapersAdapter.ViewHolder>(){
 
-    val requestQueue: RequestQueue
-    var inflater : LayoutInflater
+    val requestQueue: RequestQueue = Volley.newRequestQueue(context)
+    var inflater : LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     lateinit var onClickListener : View.OnClickListener
-    private var imageLoader: ImageLoader
+    lateinit private var imageLoader: ImageLoader
 
     init{
-        inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        requestQueue = Volley.newRequestQueue(context)
-        imageLoader = ImageLoader(requestQueue, object : ImageLoader.ImageCache {
-            private val cache = LruCache<String, Bitmap>(10)
-
-            override fun putBitmap(url: String, bitmap: Bitmap) {
-                cache.put(url, bitmap)
-            }
-
-            override fun getBitmap(url: String): Bitmap {
-                return cache.get(url)
-            }
-        })
+//        inflater= context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        requestQueue = Volley.newRequestQueue(context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewspapersAdapter.ViewHolder {
@@ -58,6 +48,17 @@ class NewspapersAdapter(
 
         thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
+            imageLoader = ImageLoader(requestQueue, object :ImageLoader.ImageCache {
+                private val cache = LruCache<String, Bitmap>(10)
+
+                override fun putBitmap(url: String, bitmap: Bitmap) {
+                    cache.put(url, bitmap)
+                }
+
+                override fun getBitmap(url: String): Bitmap {
+                    return cache.get(url)
+                }
+            })
             imageLoader.get(objIncome.imageNewspaper, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                     val bitmap = response.bitmap
@@ -69,21 +70,22 @@ class NewspapersAdapter(
                     holder.newspaperImage.setImageResource(R.drawable.no_image)
                 }
             })
+            //holder.newspaperImage.setImageResource(R.drawable.no_image)
         } else {
             holder.newspaperImage.setImageResource(R.drawable.no_image)
         }
     }
 
     fun getItem(pos: Int): Newspaper? {
-        return newspapers[pos]
+        return NewspapersList.getItem(pos)
     }
 
     fun getKey(pos: Int): String {
-        return newspapers[pos].nameNewspaper
+        return NewspapersList.getKey(pos)
     }
 
     override fun getItemCount(): Int {
-        return newspapers.size
+        return NewspapersList.getItemCount()
     }
 
     fun setOnItemClickListener(onClick: View.OnClickListener) {
@@ -103,5 +105,6 @@ class NewspapersAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var newspaperName: TextView = itemView.findViewById(R.id.title_individual_newspaper) as TextView
         var newspaperImage: ImageView = itemView.findViewById(R.id.image_individual_newspaper) as ImageView
+
     }
 }

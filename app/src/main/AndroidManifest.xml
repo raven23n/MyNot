@@ -20,6 +20,10 @@
         </activity>
         <activity android:name=".Activities.AutonomousCommunitiesActivity">
         </activity>
+        <activity android:name=".Activities.NewspapersActivity">
+        </activity>
+        <activity android:name=".Activities.NewsWebViewActivity">
+        </activity>
     </application>
 
 </manifest>
