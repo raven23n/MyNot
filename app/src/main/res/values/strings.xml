@@ -64,4 +64,5 @@
 
     <string name="drawer_open">navigation drawer abierto</string>
     <string name="drawer_close">navigation drawer cerrado</string>
+
 </resources>

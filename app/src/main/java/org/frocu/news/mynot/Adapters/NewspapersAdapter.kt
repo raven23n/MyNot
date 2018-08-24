@@ -3,7 +3,6 @@ package org.frocu.news.mynot.Adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
-import android.support.v4.util.LruCache
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.android.volley.RequestQueue
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
+import org.frocu.news.mynot.Databases.NewspapersImageDatabase
+import org.frocu.news.mynot.Databases.NewspapersImageDatabaseStorage
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.NewspapersList
@@ -48,7 +48,7 @@ class NewspapersAdapter(
 
         thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
-            imageLoader = ImageLoader(requestQueue, object :ImageLoader.ImageCache {
+/*            imageLoader = ImageLoader(requestQueue, object :ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(10)
 
                 override fun putBitmap(url: String, bitmap: Bitmap) {
@@ -69,8 +69,15 @@ class NewspapersAdapter(
                 override fun onErrorResponse(error: VolleyError) {
                     holder.newspaperImage.setImageResource(R.drawable.no_image)
                 }
-            })
+            })*/
             //holder.newspaperImage.setImageResource(R.drawable.no_image)
+            var newspaperImageListener = object: NewspapersImageDatabase.NewspaperImageListener{
+                override fun onRespuesta(image: Bitmap?) {
+                    holder.newspaperImage.setImageBitmap(image)
+                }
+            }
+            var newspaperImageDatabase = NewspapersImageDatabaseStorage(objIncome.nameNewspaper)
+            newspaperImageDatabase.takeImageNewspaper(newspaperImageListener = newspaperImageListener)
         } else {
             holder.newspaperImage.setImageResource(R.drawable.no_image)
         }

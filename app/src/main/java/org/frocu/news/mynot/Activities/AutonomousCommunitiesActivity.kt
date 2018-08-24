@@ -1,5 +1,6 @@
 package org.frocu.news.mynot.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -49,22 +50,27 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
-        newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities_db))
-        var countrySection = resources.getString(R.string.country_db)
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en CCAA onRespuesta")
-                //Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
                 if (endOfQuery) {
                     for (newsp in newspapers) {
                         Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
                     }
+                    startNewspapersActivity()
                 }
             }
         }
-
+        newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities_db))
+        var countrySection = resources.getString(R.string.country_db)
         newspapersDatabase.readCCAANewspapers(country = countrySection,
                 autonomous_communities = autonomousCommunitySection,
                 newspapersListener = newspapersListener)
+    }
+
+
+    fun startNewspapersActivity(){
+        val intent = Intent(this, NewspapersActivity::class.java)
+        startActivity(intent)
     }
 }

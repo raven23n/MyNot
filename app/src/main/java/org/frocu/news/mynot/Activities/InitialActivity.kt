@@ -37,7 +37,6 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onResume()
         initializeLayout()
         initializeButtons()
-        //sectionDatabase.readSections()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -91,16 +90,13 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     fun searchNewspapersInDB(section : String){
-        //changeLoaded(false)
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en Initial onRespuesta")
-                //Log.d("Nº periodicos :", "-"+newspapersList.size.toString()+"-")
                 if (endOfQuery) {
                     for (newsp in newspapers) {
                         Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
                     }
-//                    changeLoaded(true)
                     startNewspapersActivity()
                 }
             }
