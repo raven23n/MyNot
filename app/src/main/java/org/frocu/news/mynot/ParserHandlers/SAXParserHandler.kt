@@ -23,6 +23,8 @@ class SAXParserHandler : DefaultHandler() {
         if (localName == "item") {
             noticiaActual = NewsItem()
         }
+
+        //ojo al attributes.getValue(String) para recuperar la url de las imagenes
         texto.setLength(0)
     }
 
@@ -42,6 +44,13 @@ class SAXParserHandler : DefaultHandler() {
             } else if (localName == "item") {
 //                noticias.add(noticiaActual)
 //                noticiaActual = null
+            }
+            when(localName){
+                "title" -> ""
+                "description" -> ""
+                "pubDate" -> ""
+                "link" -> ""
+                "item" -> ""
             }
         }
     }
