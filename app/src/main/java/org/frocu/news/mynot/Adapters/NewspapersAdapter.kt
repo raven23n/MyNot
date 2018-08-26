@@ -32,7 +32,7 @@ class NewspapersAdapter(
 
     init{
 //        inflater= context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        requestQueue = Volley.newRequestQueue(context)
+//        requestQueue = Volley.newRequestQueue(context) -> probar a pasarle this
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewspapersAdapter.ViewHolder {
@@ -48,6 +48,7 @@ class NewspapersAdapter(
 
         thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
+            //en AudioLibroKotlin tengo un ejemplo de esto en kotlin
 /*            imageLoader = ImageLoader(requestQueue, object :ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(10)
 
@@ -70,14 +71,14 @@ class NewspapersAdapter(
                     holder.newspaperImage.setImageResource(R.drawable.no_image)
                 }
             })*/
-            //holder.newspaperImage.setImageResource(R.drawable.no_image)
-            var newspaperImageListener = object: NewspapersImageDatabase.NewspaperImageListener{
+            holder.newspaperImage.setImageResource(R.drawable.no_image)
+/*            var newspaperImageListener = object: NewspapersImageDatabase.NewspaperImageListener{
                 override fun onRespuesta(image: Bitmap?) {
                     holder.newspaperImage.setImageBitmap(image)
                 }
             }
             var newspaperImageDatabase = NewspapersImageDatabaseStorage(objIncome.nameNewspaper)
-            newspaperImageDatabase.takeImageNewspaper(newspaperImageListener = newspaperImageListener)
+            newspaperImageDatabase.takeImageNewspaper(newspaperImageListener = newspaperImageListener)*/
         } else {
             holder.newspaperImage.setImageResource(R.drawable.no_image)
         }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/individual_border"
+    android:padding="1dp"
+    android:layout_marginEnd="10sp"
+    android:layout_marginStart="10sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginBottom="5sp"
+    android:id="@+id/individual_background">
+    <ImageView
+        android:id="@+id/image_of_a_news_individual"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:src="@drawable/no_image"
+        android:layout_alignParentStart="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0"
+        android:padding="2dp"
+        android:id="@+id/linearHeadlineAndDateOfANews"
+        android:layout_alignBottom="@+id/image_of_a_news_individual"
+        android:layout_alignTop="@+id/image_of_a_news_individual"
+        android:layout_toEndOf="@+id/image_of_a_news_individual">
+        <TextView
+            android:id="@+id/headline_of_a_news_individual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:padding="2dp"
+            android:layout_weight="4"
+            android:text="Noticia de prueba"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/date_of_a_news_individual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de prueba"
+            android:padding="2dp"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearance"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+    </LinearLayout>
+</RelativeLayout>
