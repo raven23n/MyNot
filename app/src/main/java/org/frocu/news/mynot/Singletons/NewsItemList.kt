@@ -12,4 +12,8 @@ object NewsItemList {
     fun getItemCount(): Int {
         return news.size
     }
+
+    fun getKey(pos: Int): String {
+        return news[pos].headlineOfANews
+    }
 }

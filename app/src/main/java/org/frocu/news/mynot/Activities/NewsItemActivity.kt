@@ -8,22 +8,29 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import org.frocu.news.mynot.Adapters.NewsItemAdapter
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.ParserHandlers.SAXParserHandler
-import org.frocu.news.mynot.R
-import org.xml.sax.SAXException
-import java.io.IOException
-import java.util.ArrayList
-import javax.xml.parsers.ParserConfigurationException
-import javax.xml.parsers.SAXParserFactory
-import org.frocu.news.mynot.R.id.recycler_view_news_item
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
+import org.xml.sax.SAXException
+import java.io.IOException
+import javax.xml.parsers.ParserConfigurationException
+import javax.xml.parsers.SAXParserFactory
+import org.frocu.news.mynot.R
+import org.frocu.news.mynot.R.id.recycler_view_news_item
+
+import java.util.ArrayList
+
 
 class NewsItemActivity : AppCompatActivity()  {
     var newspaperPosition: Int = 0
     private var accessToNews = AccessToNews()
+    lateinit var newsItemAdapter : NewsItemAdapter
+    lateinit var newsItemLayoutManager: RecyclerView.LayoutManager
+    lateinit var newsItemRecyclerView: RecyclerView
+
     init{
 
     }
@@ -57,17 +64,10 @@ class NewsItemActivity : AppCompatActivity()  {
         Log.d("NewsItemActivity", "Entro en onResume")
     }
 
-    fun getContext(): Context{
-        return NewsItemActivity().getContext()
-    }
-
-    internal class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
-        lateinit var newsItemAdapter : NewspapersAdapter
-        lateinit var newsItemLayoutManager: RecyclerView.LayoutManager
-        var newsItemRecyclerView: RecyclerView
+    inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
 
         init {
-            newsItemRecyclerView = recycler_view_news_item as RecyclerView
+
         }
 
         override fun onPreExecute() {
@@ -84,6 +84,7 @@ class NewsItemActivity : AppCompatActivity()  {
                 val factory = SAXParserFactory.newInstance()
                 val parser = factory.newSAXParser()
                 val handler = SAXParserHandler()
+                Log.d("NewsItemActivity URL", "-" + params[0] + "")
                 parser.parse(params[0], handler)
             } catch (e: ParserConfigurationException) {
                 e.printStackTrace()
@@ -127,8 +128,9 @@ class NewsItemActivity : AppCompatActivity()  {
 
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
+            newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")
-            newsItemAdapter = NewspapersAdapter(NewsItemActivity().getContext())
+            newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
             Log.d("NewsItemActivity", "Creo adaptador")
             newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
                 val pos = newsItemRecyclerView.getChildAdapterPosition(v)
@@ -136,7 +138,7 @@ class NewsItemActivity : AppCompatActivity()  {
             })
             newsItemRecyclerView.adapter= newsItemAdapter
             Log.d("NewsItemActivity", "Recycler view con adaptador")
-            newsItemLayoutManager = LinearLayoutManager(NewsItemActivity().getContext())
+            newsItemLayoutManager = LinearLayoutManager(this@NewsItemActivity)
             Log.d("NewsItemActivity", "Creo LinearLayoutManager")
             newsItemRecyclerView.layoutManager = newsItemLayoutManager
             Log.d("NewsItemActivity", "Recycler view con LinearLayoutManager asignado")

@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".Activities.NewspapersActivity">
         </activity>
+        <activity android:name=".Activities.NewsItemActivity">
+        </activity>
         <activity android:name=".Activities.NewsWebViewActivity">
         </activity>
     </application>
