@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.news_web_view.*
 import org.frocu.news.mynot.R
 
-@Suppress("DEPRECATION")
+
 class NewsWebViewActivity : AppCompatActivity() {
 
     var urlNews =""

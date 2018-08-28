@@ -1,13 +1,19 @@
 package org.frocu.news.mynot.Activities
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.util.LruCache
 import android.view.View
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.ImageLoader
+import com.android.volley.toolbox.Volley
 import org.frocu.news.mynot.Adapters.NewsItemAdapter
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.POJO.NewsItem
@@ -43,32 +49,24 @@ class NewsItemActivity : AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
-        /*newsItemRecyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView
-        Log.d("NewsItemActivity", "Recycler view asignado")
-        newsItemAdapter = NewspapersAdapter(this)
-        Log.d("NewsItemActivity", "Creo adaptador")
-        newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
-            val pos = newsItemRecyclerView.getChildAdapterPosition(v)
-            Log.d("NewsItemActivity", "Posicion Elemento -"+pos+"-")
-        })
-        newsItemRecyclerView.adapter= newsItemAdapter
-        Log.d("NewsItemActivity", "Recycler view con adaptador")
-        newsItemLayoutManager = LinearLayoutManager(this)
-        Log.d("NewsItemActivity", "Creo LinearLayoutManager")
-        newsItemRecyclerView.layoutManager = newsItemLayoutManager
-        Log.d("NewsItemActivity", "Recycler view con LinearLayoutManager asignado")
-        newsItemAdapter.notifyDataSetChanged()*/
         val extras = intent.extras
         newspaperPosition = extras.getInt("position")
         accessToNews.execute(newspapers[newspaperPosition].urlNewspaper)
         Log.d("NewsItemActivity", "Entro en onResume")
     }
 
+    fun startWebNavigatorActivity(urlNews: String) {
+        val intent = Intent(this, NewsWebViewActivity::class.java)
+        intent.putExtra("urlNews", urlNews)
+        startActivity(intent)
+    }
+
+    companion object {
+        lateinit var requestQueue: RequestQueue
+        lateinit var imageLoader: ImageLoader
+    }
+
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
-
-        init {
-
-        }
 
         override fun onPreExecute() {
         }
@@ -78,7 +76,6 @@ class NewsItemActivity : AppCompatActivity()  {
         }
 
         override fun doInBackground(vararg params: String): ArrayList<NewsItem> {
-
             news.clear()
             try {
                 val factory = SAXParserFactory.newInstance()
@@ -128,6 +125,20 @@ class NewsItemActivity : AppCompatActivity()  {
 
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
+
+            requestQueue = Volley.newRequestQueue(this@NewsItemActivity)
+            imageLoader = ImageLoader(requestQueue, object : ImageLoader.ImageCache {
+                private val cache = LruCache<String, Bitmap>(10)
+
+                override fun putBitmap(url: String, bitmap: Bitmap) {
+                    cache.put(url, bitmap)
+                }
+
+                override fun getBitmap(url: String): Bitmap? {
+                    return cache.get(url)
+                }
+            })
+
             newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")
             newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
@@ -135,6 +146,8 @@ class NewsItemActivity : AppCompatActivity()  {
             newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
                 val pos = newsItemRecyclerView.getChildAdapterPosition(v)
                 Log.d("NewsItemActivity", "Posicion Elemento -"+pos+"-")
+                val urlNews = news.get(pos).urlOfANews
+                startWebNavigatorActivity(urlNews)
             })
             newsItemRecyclerView.adapter= newsItemAdapter
             Log.d("NewsItemActivity", "Recycler view con adaptador")
