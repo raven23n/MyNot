@@ -12,12 +12,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
-import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.imageLoader
-import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.requestQueue
+/*import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.imageLoader
+import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.requestQueue*/
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.NewsItemList
 import org.frocu.news.mynot.Singletons.NewsItemList.news
+import org.frocu.news.mynot.Singletons.imageLoaderVolley.imageLoader
 
 class NewsItemAdapter(
         var context : Context

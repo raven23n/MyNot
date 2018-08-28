@@ -11,12 +11,13 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_list_of_newspapers.recycler_view_newspapers
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.imageLoaderVolley
 
 class NewspapersActivity : AppCompatActivity() {
 
     lateinit var newspapersAdapter : NewspapersAdapter
     lateinit var layoutManager: RecyclerView.LayoutManager
-    var recyclerView: RecyclerView ?= null
+    lateinit var recyclerView: RecyclerView
     init{
     }
 
@@ -29,20 +30,21 @@ class NewspapersActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("NewspapersActivity", "Entro en onResume")
-        recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView?
+        imageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
+        recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView
         Log.d("NewspapersActivity", "Recycler view asignado")
         newspapersAdapter = NewspapersAdapter(this)
         Log.d("NewspapersActivity", "Creo adaptador")
         newspapersAdapter.setOnItemClickListener(View.OnClickListener { v ->
-            val position : Int? = recyclerView?.getChildAdapterPosition(v)
+            val position : Int? = recyclerView.getChildAdapterPosition(v)
             Log.d("NewspapersActivity", "Posicion Elemento -"+position+"-")
             startNewsItemActivity(position)
         })
-        recyclerView?.adapter= newspapersAdapter
+        recyclerView.adapter= newspapersAdapter
         Log.d("NewspapersActivity", "Recycler view con adaptador")
         layoutManager = LinearLayoutManager(this)
         Log.d("NewspapersActivity", "Creo LinearLayoutManager")
-        recyclerView?.layoutManager = layoutManager
+        recyclerView.layoutManager = layoutManager
         Log.d("NewspapersActivity", "Recycler view con LinearLayoutManager asignado")
         newspapersAdapter.notifyDataSetChanged()
     }

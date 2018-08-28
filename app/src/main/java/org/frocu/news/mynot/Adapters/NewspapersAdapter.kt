@@ -1,7 +1,6 @@
 package org.frocu.news.mynot.Adapters
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,15 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.android.volley.RequestQueue
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
-import com.android.volley.toolbox.Volley
-import org.frocu.news.mynot.Databases.NewspapersImageDatabase
-import org.frocu.news.mynot.Databases.NewspapersImageDatabaseStorage
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.NewspapersList
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
+import org.frocu.news.mynot.Singletons.imageLoaderVolley.imageLoader
 
 
 class NewspapersAdapter(
@@ -25,14 +22,11 @@ class NewspapersAdapter(
 )
     : RecyclerView.Adapter<NewspapersAdapter.ViewHolder>(){
 
-    val requestQueue: RequestQueue = Volley.newRequestQueue(context)
-    var inflater : LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    var inflater : LayoutInflater
     lateinit var onClickListener : View.OnClickListener
-    lateinit private var imageLoader: ImageLoader
 
     init{
-//        inflater= context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        requestQueue = Volley.newRequestQueue(context) -> probar a pasarle this
+        inflater= context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewspapersAdapter.ViewHolder {
@@ -48,30 +42,22 @@ class NewspapersAdapter(
 
         thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
-            //en AudioLibroKotlin tengo un ejemplo de esto en kotlin
-/*            imageLoader = ImageLoader(requestQueue, object :ImageLoader.ImageCache {
-                private val cache = LruCache<String, Bitmap>(10)
-
-                override fun putBitmap(url: String, bitmap: Bitmap) {
-                    cache.put(url, bitmap)
-                }
-
-                override fun getBitmap(url: String): Bitmap {
-                    return cache.get(url)
-                }
-            })
             imageLoader.get(objIncome.imageNewspaper, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                     val bitmap = response.bitmap
-                    holder.newspaperImage.setImageBitmap(bitmap)
-                    holder.newspaperImage.invalidate()
+                    if (bitmap != null) {
+                        holder.newspaperImage.apply {
+                            setImageBitmap(bitmap)
+                            invalidate()
+                        }
+                    }
                 }
 
                 override fun onErrorResponse(error: VolleyError) {
                     holder.newspaperImage.setImageResource(R.drawable.no_image)
                 }
-            })*/
-            holder.newspaperImage.setImageResource(R.drawable.no_image)
+            })
+            //holder.newspaperImage.setImageResource(R.drawable.no_image)
 /*            var newspaperImageListener = object: NewspapersImageDatabase.NewspaperImageListener{
                 override fun onRespuesta(image: Bitmap?) {
                     holder.newspaperImage.setImageBitmap(image)

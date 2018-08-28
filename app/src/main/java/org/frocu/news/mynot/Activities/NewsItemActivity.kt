@@ -26,6 +26,9 @@ import javax.xml.parsers.ParserConfigurationException
 import javax.xml.parsers.SAXParserFactory
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.R.id.recycler_view_news_item
+import org.frocu.news.mynot.Singletons.imageLoaderVolley.imageLoader
+import org.frocu.news.mynot.Singletons.imageLoaderVolley.initializeImageLoaderVolley
+import org.frocu.news.mynot.Singletons.imageLoaderVolley.requestQueue
 
 import java.util.ArrayList
 
@@ -61,10 +64,10 @@ class NewsItemActivity : AppCompatActivity()  {
         startActivity(intent)
     }
 
-    companion object {
+/*    companion object {
         lateinit var requestQueue: RequestQueue
         lateinit var imageLoader: ImageLoader
-    }
+    }*/
 
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
 
@@ -126,7 +129,7 @@ class NewsItemActivity : AppCompatActivity()  {
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
 
-            requestQueue = Volley.newRequestQueue(this@NewsItemActivity)
+/*            requestQueue = Volley.newRequestQueue(this@NewsItemActivity)
             imageLoader = ImageLoader(requestQueue, object : ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(10)
 
@@ -137,8 +140,8 @@ class NewsItemActivity : AppCompatActivity()  {
                 override fun getBitmap(url: String): Bitmap? {
                     return cache.get(url)
                 }
-            })
-
+            })*/
+            initializeImageLoaderVolley(this@NewsItemActivity)
             newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")
             newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
