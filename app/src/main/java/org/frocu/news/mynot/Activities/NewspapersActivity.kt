@@ -2,16 +2,15 @@ package org.frocu.news.mynot.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import kotlinx.android.synthetic.main.activity_list_of_newspapers.recycler_view_newspapers
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.R
-import org.frocu.news.mynot.Singletons.imageLoaderVolley
+import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 
 class NewspapersActivity : AppCompatActivity() {
 
@@ -30,7 +29,7 @@ class NewspapersActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("NewspapersActivity", "Entro en onResume")
-        imageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
+        ImageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
         recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView
         Log.d("NewspapersActivity", "Recycler view asignado")
         newspapersAdapter = NewspapersAdapter(this)
@@ -51,7 +50,8 @@ class NewspapersActivity : AppCompatActivity() {
 
     fun startNewsItemActivity(position :Int?){
         val intent = Intent(this, NewsItemActivity::class.java)
-        intent.putExtra("position", position)
+        if(position!=null)
+            positionNewspaperInCharge = position
         startActivity(intent)
     }
 }

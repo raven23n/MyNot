@@ -1,21 +1,15 @@
 package org.frocu.news.mynot.Activities
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.AsyncTask
+import android.os.AsyncTask.execute
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.util.LruCache
 import android.view.View
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.ImageLoader
-import com.android.volley.toolbox.Volley
 import org.frocu.news.mynot.Adapters.NewsItemAdapter
-import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.ParserHandlers.SAXParserHandler
 import org.frocu.news.mynot.Singletons.NewsItemList.news
@@ -26,15 +20,15 @@ import javax.xml.parsers.ParserConfigurationException
 import javax.xml.parsers.SAXParserFactory
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.R.id.recycler_view_news_item
-import org.frocu.news.mynot.Singletons.imageLoaderVolley.imageLoader
-import org.frocu.news.mynot.Singletons.imageLoaderVolley.initializeImageLoaderVolley
-import org.frocu.news.mynot.Singletons.imageLoaderVolley.requestQueue
+import org.frocu.news.mynot.Singletons.ImageLoaderVolley.initializeImageLoaderVolley
+import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
 
 import java.util.ArrayList
 
 
 class NewsItemActivity : AppCompatActivity()  {
-    var newspaperPosition: Int = 0
+
     private var accessToNews = AccessToNews()
     lateinit var newsItemAdapter : NewsItemAdapter
     lateinit var newsItemLayoutManager: RecyclerView.LayoutManager
@@ -52,22 +46,19 @@ class NewsItemActivity : AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
-        val extras = intent.extras
-        newspaperPosition = extras.getInt("position")
-        accessToNews.execute(newspapers[newspaperPosition].urlNewspaper)
+        executeAccessToNews()
         Log.d("NewsItemActivity", "Entro en onResume")
+        Log.d("NewsItemActivity", "positionNewspaperInCharge: -" + positionNewspaperInCharge +"-")
     }
 
+    fun executeAccessToNews(){
+        AccessToNews().execute(newspapers[positionNewspaperInCharge].urlNewspaper)
+    }
     fun startWebNavigatorActivity(urlNews: String) {
         val intent = Intent(this, NewsWebViewActivity::class.java)
-        intent.putExtra("urlNews", urlNews)
+        urlNewsItemActual = urlNews
         startActivity(intent)
     }
-
-/*    companion object {
-        lateinit var requestQueue: RequestQueue
-        lateinit var imageLoader: ImageLoader
-    }*/
 
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
 
@@ -129,18 +120,6 @@ class NewsItemActivity : AppCompatActivity()  {
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
 
-/*            requestQueue = Volley.newRequestQueue(this@NewsItemActivity)
-            imageLoader = ImageLoader(requestQueue, object : ImageLoader.ImageCache {
-                private val cache = LruCache<String, Bitmap>(10)
-
-                override fun putBitmap(url: String, bitmap: Bitmap) {
-                    cache.put(url, bitmap)
-                }
-
-                override fun getBitmap(url: String): Bitmap? {
-                    return cache.get(url)
-                }
-            })*/
             initializeImageLoaderVolley(this@NewsItemActivity)
             newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")

@@ -7,7 +7,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
-object imageLoaderVolley {
+object ImageLoaderVolley {
     lateinit var requestQueue: RequestQueue
     lateinit var imageLoader: ImageLoader
 

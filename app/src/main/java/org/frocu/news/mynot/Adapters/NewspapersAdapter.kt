@@ -14,7 +14,7 @@ import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.NewspapersList
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
-import org.frocu.news.mynot.Singletons.imageLoaderVolley.imageLoader
+import org.frocu.news.mynot.Singletons.ImageLoaderVolley.imageLoader
 
 
 class NewspapersAdapter(
@@ -57,14 +57,6 @@ class NewspapersAdapter(
                     holder.newspaperImage.setImageResource(R.drawable.no_image)
                 }
             })
-            //holder.newspaperImage.setImageResource(R.drawable.no_image)
-/*            var newspaperImageListener = object: NewspapersImageDatabase.NewspaperImageListener{
-                override fun onRespuesta(image: Bitmap?) {
-                    holder.newspaperImage.setImageBitmap(image)
-                }
-            }
-            var newspaperImageDatabase = NewspapersImageDatabaseStorage(objIncome.nameNewspaper)
-            newspaperImageDatabase.takeImageNewspaper(newspaperImageListener = newspaperImageListener)*/
         } else {
             holder.newspaperImage.setImageResource(R.drawable.no_image)
         }
@@ -90,10 +82,6 @@ class NewspapersAdapter(
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val ni = cm.activeNetworkInfo
         return ni != null
-        /* if (ni == null) {
-                false
-           } else
-                true*/
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -12,8 +12,8 @@
     android:id="@+id/individual_background">
     <ImageView
         android:id="@+id/image_of_a_news_individual"
-        android:layout_width="90sp"
-        android:layout_height="90sp"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
         android:src="@drawable/no_image"
         android:layout_alignParentStart="true"/>
     <LinearLayout
