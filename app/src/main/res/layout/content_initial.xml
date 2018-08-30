@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:id="@+id/initial_activity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_initial">
+    tools:showIn="@layout/no_se_usa_app_bar_initial">
     <LinearLayout
         android:gravity="center"
         android:layout_height="match_parent"

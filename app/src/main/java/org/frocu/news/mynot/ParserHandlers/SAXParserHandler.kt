@@ -36,9 +36,6 @@ class SAXParserHandler : DefaultHandler() {
                     var urlImage = attributes?.getValue("url").toString()
                     newsItemLoading.imageOfANews = urlImage
                     Log.d("SAX Parser: ", "Imagen url: -" + urlImage + "-")
-/*                    Log.d("SAX Parser: ", "LocalName: -" + localName + "-")
-                    Log.d("SAX Parser: ", "Uri: -" + uri + "-")
-                    Log.d("SAX Parser: ", "QName: -" + qName + "-")*/
                     isFirstImage = false
                 }
             }
@@ -47,9 +44,6 @@ class SAXParserHandler : DefaultHandler() {
                     var urlImage = attributes?.getValue("url").toString()
                     newsItemLoading.imageOfANews = urlImage
                     Log.d("SAX Parser: ", "Imagen url: -" + urlImage + "-")
-/*                    Log.d("SAX Parser: ", "LocalName: -" + localName + "-")
-                    Log.d("SAX Parser: ", "Uri: -" + uri + "-")
-                    Log.d("SAX Parser: ", "QName: -" + qName + "-")*/
                     isFirstImage = false
                 }
             }
@@ -95,7 +89,7 @@ class SAXParserHandler : DefaultHandler() {
                     news.add(newsItemLoading)
                     newsItemLoading = NewsItem()
                     isFirstImage = true
-                    Log.d("SAX Parser: ", "Fin item")
+                    Log.d("SAX Parser: ", "Fin item item")
                 }
             }
         }

@@ -29,7 +29,6 @@ import java.util.ArrayList
 
 class NewsItemActivity : AppCompatActivity()  {
 
-    private var accessToNews = AccessToNews()
     lateinit var newsItemAdapter : NewsItemAdapter
     lateinit var newsItemLayoutManager: RecyclerView.LayoutManager
     lateinit var newsItemRecyclerView: RecyclerView
@@ -75,7 +74,7 @@ class NewsItemActivity : AppCompatActivity()  {
                 val factory = SAXParserFactory.newInstance()
                 val parser = factory.newSAXParser()
                 val handler = SAXParserHandler()
-                Log.d("NewsItemActivity URL", "-" + params[0] + "")
+                Log.d("NewsItemActivity URL", "-" + params[0] + "-")
                 parser.parse(params[0], handler)
             } catch (e: ParserConfigurationException) {
                 e.printStackTrace()

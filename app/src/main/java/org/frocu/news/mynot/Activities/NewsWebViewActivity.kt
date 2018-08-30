@@ -3,6 +3,7 @@ package org.frocu.news.mynot.Activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -47,6 +48,7 @@ class NewsWebViewActivity : AppCompatActivity() {
         /*val extras = intent.extras
         urlNews = extras!!.getString("urlNews")
         webview_news_details.loadUrl(urlNews)*/
+        Log.d("WebViewActivity", "URL a mostrar -" + urlNewsItemActual + "-")
         webview_news_details.loadUrl(urlNewsItemActual)
     }
 }

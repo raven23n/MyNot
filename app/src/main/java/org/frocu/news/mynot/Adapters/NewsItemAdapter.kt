@@ -33,6 +33,7 @@ class NewsItemAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsItemAdapter.ViewHolder {
         val v = inflater.inflate(R.layout.individual_news_item, null)
         v.setOnClickListener(onClickListener)
+        //v.setOnLongClickListener()
         return NewsItemAdapter.ViewHolder(v)
     }
 

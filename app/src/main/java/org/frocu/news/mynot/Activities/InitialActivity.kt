@@ -20,12 +20,12 @@ import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import java.lang.Thread.sleep
 
-class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/{
 
-    //var sectionDatabase: SectionDatabase = SectionDatabaseFirestore()
     lateinit var newspapersDatabase: NewspapersDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,28 +35,8 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun onResume() {
         super.onResume()
-        initializeLayout()
+        //initializeLayout()
         initializeButtons()
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun initializeLayout(){
-        val toolbar = findViewById(R.id.initial_toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        // Navigation Drawer
-
-        var drawer_layout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        var toggle = ActionBarDrawerToggle(this,
-                drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_close)
-
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
-        nav_view.setNavigationItemSelectedListener(this)
     }
 
     fun initializeButtons(){
@@ -90,6 +70,7 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     fun searchNewspapersInDB(section : String){
+        sectionActual = section
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en Initial onRespuesta")
@@ -110,3 +91,22 @@ class InitialActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         startActivity(intent)
     }
 }
+
+/*    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    }
+
+    fun initializeLayout(){
+        val toolbar = findViewById(R.id.initial_toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        // Navigation Drawer
+
+        var drawer_layout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
+        var toggle = ActionBarDrawerToggle(this,
+                drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_close)
+
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
+        nav_view.setNavigationItemSelectedListener(this)
+    }*/
