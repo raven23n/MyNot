@@ -3,44 +3,41 @@ package org.frocu.news.mynot.Singletons
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import org.frocu.news.mynot.Activities.NewsItemActivity
+import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.instanceDatabase
 
 object LongClickContextMenu{
 
-    fun createContextMenu(context: Context, view:View, position: Int): AlertDialog?
+    fun createContextMenu(context: Context, position: Int): AlertDialog?
     {
         val menu = AlertDialog.Builder(context)
-        val options = createArrayOptions(context)
+        val options = createArrayOptions()
         menu.setItems(options) { dialog, option ->
             when (option) {
-                0 /*Guardar*/   -> saveNewsItem(context,position)
+                0 /*Guardar o Borrar*/   -> {
+                    when(positionNewspaperInCharge){
+                        -1->    deleteNewsItem(context,position)
+                        else -> saveNewsItem(context,position)
+                    }
+                }
                 1 /*Compartir*/ -> shareNewsItem(context,position)
             }
         }
         return menu.create()
     }
 
-    fun createArrayOptions(context: Context): Array<CharSequence>{
-        var options: Array<CharSequence> = arrayOf("")
-        Log.d("ClassName ContextMenu","context.javaClass.canonicalName: -"+context.javaClass.canonicalName+"-")
-        var nameOfClassThatCallsThisFun = giveNameOfClassThatCalls(context.javaClass.canonicalName)
-        when(nameOfClassThatCallsThisFun){
-            "NewsItemActivity"->{
-                options = arrayOf("Guardar", "Compartir")
-            }
+    fun createArrayOptions(): Array<CharSequence>{
+        when(positionNewspaperInCharge){
+            -1->    return arrayOf("Borrar", "Compartir")
+            else -> return arrayOf("Guardar", "Compartir")
         }
-        return options
-    }
-
-    fun giveNameOfClassThatCalls(canonicalName:String):String{
-        val parts = canonicalName.split(".")
-        val nameOfClassThatCallsThisFun = parts[5]
-        Log.d("ClassName ContextMenu","ClassName: -"+ nameOfClassThatCallsThisFun +"-")
-        return nameOfClassThatCallsThisFun
     }
 
     fun shareNewsItem(context:Context,position: Int){
@@ -59,4 +56,37 @@ object LongClickContextMenu{
                 Toast.LENGTH_LONG
         ).show()
     }
+
+    fun deleteNewsItem(context: Context, position: Int){
+        instanceDatabase.deleteNewsItem(news[position])
+        news.removeAt(position)
+        Toast.makeText(
+                context,
+                "Noticia borrada correctamente",
+                Toast.LENGTH_LONG
+        ).show()
+
+        if (context is NewsItemActivity) {
+            context.newsItemAdapterNotifyDataSetChanged()
+        }
+    }
 }
+/*
+    fun giveNameOfClassThatCalls(canonicalName:String):String{
+        val parts = canonicalName.split(".")
+        val nameOfClassThatCallsThisFun = parts[5]
+        Log.d("ClassName ContextMenu","ClassName: -"+ nameOfClassThatCallsThisFun +"-")
+        return nameOfClassThatCallsThisFun
+    }*/
+/*
+fun createArrayOptions(): Array<CharSequence>{
+    var options: Array<CharSequence> = arrayOf("")
+    Log.d("ClassName ContextMenu","context.javaClass.canonicalName: -"+context.javaClass.canonicalName+"-")
+    var nameOfClassThatCallsThisFun = giveNameOfClassThatCalls(context.javaClass.canonicalName)
+    when(nameOfClassThatCallsThisFun){
+        "NewsItemActivity"->{
+            options = arrayOf("Guardar", "Compartir")
+        }
+    }
+    return options
+}*/

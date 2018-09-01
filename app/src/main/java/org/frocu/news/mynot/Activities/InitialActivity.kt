@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.GlobalVariables
+import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
@@ -71,6 +73,7 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
 
     fun openNewsSaved(){
         news = instanceDatabase.obtainNewsItemsSaved()
+        positionNewspaperInCharge = -1
         if(news.size<=0){
             AlertDialog.Builder(this)
                     .setTitle("MyNot")
@@ -82,6 +85,9 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
                         }
                     })
                     .show()
+        }else{
+            val intent = Intent(this, NewsItemActivity::class.java)
+            startActivity(intent)
         }
     }
 

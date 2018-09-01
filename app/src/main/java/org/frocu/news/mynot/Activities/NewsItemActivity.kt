@@ -2,6 +2,8 @@ package org.frocu.news.mynot.Activities
 
 import android.animation.AnimatorInflater
 import android.app.AlertDialog
+import android.app.ProgressDialog.show
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.AsyncTask.execute
@@ -29,6 +31,9 @@ import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
 
 import java.util.ArrayList
 import org.frocu.news.mynot.Singletons.LongClickContextMenu.createContextMenu
+import android.telecom.Call.Details
+
+
 
 
 class NewsItemActivity : AppCompatActivity()  {
@@ -49,7 +54,11 @@ class NewsItemActivity : AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
-        executeAccessToNews()
+        if(positionNewspaperInCharge.equals(-1)){
+            validationNewsItemActivity()
+        }else{
+            executeAccessToNews()
+        }
         Log.d("NewsItemActivity", "Entro en onResume")
         Log.d("NewsItemActivity", "positionNewspaperInCharge: -" + positionNewspaperInCharge +"-")
     }
@@ -61,6 +70,59 @@ class NewsItemActivity : AppCompatActivity()  {
         val intent = Intent(this, NewsWebViewActivity::class.java)
         urlNewsItemActual = urlNews
         startActivity(intent)
+    }
+
+    fun newsItemAdapterNotifyDataSetChanged(){
+        finish()
+        val intent = Intent(this, NewsItemActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun validationNewsItemActivity(){
+        if(news.size<=0){
+            AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage("No tienes guardada ninguna noticia.")
+                    .setPositiveButton("OK", {
+                        dialogInterface: DialogInterface, i: Int ->
+                            dialogInterface.cancel()
+                            Log.d("NewsItemActivity", "Cierro el Dialog")
+                            onBackPressed()
+                    })
+                    .show()
+        }else {
+            chargeNewsItemActivity()
+        }
+    }
+
+    fun chargeNewsItemActivity(){
+        initializeImageLoaderVolley(this@NewsItemActivity)
+        newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
+        Log.d("NewsItemActivity", "Recycler view asignado")
+        Log.d("NewsItemActivity", "Resgitro el context menú")
+        newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
+        Log.d("NewsItemActivity", "Creo adaptador")
+        newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
+            val position = newsItemRecyclerView.getChildAdapterPosition(v)
+            Log.d("NewsItemActivity", "Posicion Elemento -" + position + "-")
+            val urlNews = news.get(position).urlOfANews
+            startWebNavigatorActivity(urlNews)
+        })
+        newsItemAdapter.setOnItemLongClickListener(View.OnLongClickListener { v ->
+            val position = newsItemRecyclerView.getChildAdapterPosition(v)
+            val menu = createContextMenu(this@NewsItemActivity, position)
+            if (menu != null) {
+                menu.show()
+            }
+            true
+        })
+        newsItemRecyclerView.adapter = newsItemAdapter
+        Log.d("NewsItemActivity", "Recycler view con adaptador")
+        newsItemLayoutManager = LinearLayoutManager(this@NewsItemActivity)
+        Log.d("NewsItemActivity", "Creo LinearLayoutManager")
+        newsItemRecyclerView.layoutManager = newsItemLayoutManager
+        Log.d("NewsItemActivity", "Recycler view con LinearLayoutManager asignado")
+        newsItemAdapter.notifyDataSetChanged()
     }
 
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
@@ -122,8 +184,8 @@ class NewsItemActivity : AppCompatActivity()  {
 
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
-
-            initializeImageLoaderVolley(this@NewsItemActivity)
+            chargeNewsItemActivity()
+/*            initializeImageLoaderVolley(this@NewsItemActivity)
             newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")
             Log.d("NewsItemActivity", "Resgitro el context menú")
@@ -149,7 +211,7 @@ class NewsItemActivity : AppCompatActivity()  {
             Log.d("NewsItemActivity", "Creo LinearLayoutManager")
             newsItemRecyclerView.layoutManager = newsItemLayoutManager
             Log.d("NewsItemActivity", "Recycler view con LinearLayoutManager asignado")
-            newsItemAdapter.notifyDataSetChanged()
+            newsItemAdapter.notifyDataSetChanged()*/
         }
     }
 }
