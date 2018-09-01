@@ -1,28 +1,24 @@
 package org.frocu.news.mynot.Activities
 
-import android.app.ProgressDialog
+import android.app.Dialog
 import android.app.ProgressDialog.show
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.sax.EndElementListener
-import android.support.design.widget.NavigationView
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.Toolbar
+import android.support.v4.app.INotificationSideChannel
+import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
+import kotlinx.android.synthetic.main.button_news_saved.*
 import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
-import org.frocu.news.mynot.Databases.SectionDatabase
-import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
-import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
+import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
-import java.lang.Thread.sleep
+import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.initializeInstanceDatabase
+import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.instanceDatabase
 
 class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/{
 
@@ -36,10 +32,14 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
     override fun onResume() {
         super.onResume()
         //initializeLayout()
+        initializeInstanceDatabase(this)
         initializeButtons()
     }
 
     fun initializeButtons(){
+        news_saved_background.setOnClickListener {
+            openNewsSaved()
+        }
         cardview_science.setOnClickListener{
             searchNewspapersInDB(resources.getString(R.string.science_db))
         }
@@ -65,8 +65,24 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
     }
 
     fun openCCAA () {
-        var intent : Intent = Intent(this, AutonomousCommunitiesActivity::class.java)
+        var intent = Intent(this, AutonomousCommunitiesActivity::class.java)
         startActivity (intent)
+    }
+
+    fun openNewsSaved(){
+        news = instanceDatabase.obtainNewsItemsSaved()
+        if(news.size<=0){
+            AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage("No tienes guardada ninguna noticia.")
+                    .setPositiveButton("OK",DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+                        fun onClick(dialog:DialogInterface, id:Int){
+                            dialog.cancel()
+                        }
+                    })
+                    .show()
+        }
     }
 
     fun searchNewspapersInDB(section : String){

@@ -1,9 +1,12 @@
 package org.frocu.news.mynot.Activities
 
+import android.animation.AnimatorInflater
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.AsyncTask.execute
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -25,11 +28,7 @@ import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
 
 import java.util.ArrayList
-import android.view.MenuInflater
-import android.view.ContextMenu.ContextMenuInfo
-import android.view.ContextMenu
-import android.view.MenuItem
-import android.widget.Toast
+import org.frocu.news.mynot.Singletons.LongClickContextMenu.createContextMenu
 
 
 class NewsItemActivity : AppCompatActivity()  {
@@ -62,27 +61,6 @@ class NewsItemActivity : AppCompatActivity()  {
         val intent = Intent(this, NewsWebViewActivity::class.java)
         urlNewsItemActual = urlNews
         startActivity(intent)
-    }
-
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        val inflater = menuInflater
-        inflater.inflate(R.menu.context_menu_news_item, menu)
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        //find out which menu item was pressed
-        when (item.getItemId()) {
-            R.id.save_news_item_option -> {
-                saveNewsItem()
-                return true
-            }
-            else -> return false
-        }
-    }
-
-    fun saveNewsItem(){
-        Toast.makeText(this,"Noticia guardada para su posterior consulta.",Toast.LENGTH_LONG).show()
     }
 
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
@@ -148,15 +126,22 @@ class NewsItemActivity : AppCompatActivity()  {
             initializeImageLoaderVolley(this@NewsItemActivity)
             newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
             Log.d("NewsItemActivity", "Recycler view asignado")
-            registerForContextMenu(newsItemRecyclerView);
             Log.d("NewsItemActivity", "Resgitro el context menú")
             newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
             Log.d("NewsItemActivity", "Creo adaptador")
             newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
-                val pos = newsItemRecyclerView.getChildAdapterPosition(v)
-                Log.d("NewsItemActivity", "Posicion Elemento -"+pos+"-")
-                val urlNews = news.get(pos).urlOfANews
+                val position = newsItemRecyclerView.getChildAdapterPosition(v)
+                Log.d("NewsItemActivity", "Posicion Elemento -"+position+"-")
+                val urlNews = news.get(position).urlOfANews
                 startWebNavigatorActivity(urlNews)
+            })
+            newsItemAdapter.setOnItemLongClickListener(View.OnLongClickListener{ v ->
+                val position = newsItemRecyclerView.getChildAdapterPosition(v)
+                val menu = createContextMenu(this@NewsItemActivity,v,position)
+                if (menu != null) {
+                    menu.show()
+                }
+                true
             })
             newsItemRecyclerView.adapter= newsItemAdapter
             Log.d("NewsItemActivity", "Recycler view con adaptador")

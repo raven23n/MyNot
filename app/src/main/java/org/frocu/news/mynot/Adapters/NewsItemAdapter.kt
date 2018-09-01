@@ -25,6 +25,7 @@ class NewsItemAdapter(
 
     var inflater : LayoutInflater
     lateinit var onClickListener : View.OnClickListener
+    lateinit var onLongClickListener : View.OnLongClickListener
 
     init{
         inflater= context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -33,7 +34,7 @@ class NewsItemAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsItemAdapter.ViewHolder {
         val v = inflater.inflate(R.layout.individual_news_item, null)
         v.setOnClickListener(onClickListener)
-        //v.setOnLongClickListener()
+        v.setOnLongClickListener(onLongClickListener)
         return NewsItemAdapter.ViewHolder(v)
     }
 
@@ -78,6 +79,10 @@ class NewsItemAdapter(
 
     fun setOnItemClickListener(onClick: View.OnClickListener) {
         onClickListener = onClick
+    }
+
+    fun setOnItemLongClickListener(onLongClick: View.OnLongClickListener) {
+        onLongClickListener = onLongClick
     }
 
     private fun isNetworkConnected(): Boolean {

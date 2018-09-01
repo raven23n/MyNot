@@ -36,11 +36,10 @@ class NewspapersAdapter(
     }
 
     override fun onBindViewHolder(holder: NewspapersAdapter.ViewHolder, position: Int) {
-        var thereIsConnection: Boolean? = true
         val objIncome = newspapers.get(position)
         holder.newspaperName.text = objIncome.nameNewspaper
 
-        thereIsConnection = isNetworkConnected()
+        var thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
             imageLoader.get(objIncome.imageNewspaper, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {

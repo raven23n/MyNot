@@ -17,13 +17,12 @@ class NewsSavedDatabaseSQLite(
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE news (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "headline TEXT, image TEXT, url TEXT, date TEXT)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase,
                            oldVersion: Int, newVersion: Int) {
-        // En caso de una nueva versión habría que actualizar las tablas
     }
 
     override fun saveNewsItem(newsItem: NewsItem) {
@@ -32,26 +31,28 @@ class NewsSavedDatabaseSQLite(
         val image = newsItem.imageOfANews
         val url = newsItem.dateOfANews
         val date = newsItem.urlOfANews
-        if (!searchNewsItemsSaved(newsItem)) {
+        if (!searchNewsItemsSaved(db,newsItem)) {
             db.execSQL("INSERT INTO news VALUES ( null, '"
                     + headline + "', '"
                     + image + "', '"
                     + url + "', '"
                     + date + "')")
+            Log.d("Guardado de noticias: ","Noticia guardada.")
         }
+        Log.d("Guardado de noticias: ","Fin guardar noticia.")
         db.close()
     }
 
     override fun obtainNewsItemsSaved(): ArrayList<NewsItem> {
         val result = ArrayList<NewsItem>()
         val db = getReadableDatabase()
-        val CAMPOS = arrayOf("headline", "image", "url", "date")
+        val CAMPOS = arrayOf("id","headline", "image", "url", "date")
         val cursor = db.query("news", CAMPOS, null, null, null, null, "id ASC", null)
         while (cursor.moveToNext()) {
-            val headline = cursor.getString(0)
-            val image = cursor.getString(1)
-            val url = cursor.getString(2)
-            val date = cursor.getString(3)
+            val headline = cursor.getString(1)
+            val image = cursor.getString(2)
+            val url = cursor.getString(3)
+            val date = cursor.getString(4)
             val newsItemRecovered = NewsItem(
                     headlineOfANews = headline,
                     imageOfANews = image,
@@ -66,7 +67,7 @@ class NewsSavedDatabaseSQLite(
 
     override fun deleteNewsItem(newsItem: NewsItem) {
         val db = getWritableDatabase()
-        if (searchNewsItemsSaved(newsItem)) {
+        if (searchNewsItemsSaved(db,newsItem)) {
             db.execSQL("DELETE FROM news WHERE headline = '" + newsItem.headlineOfANews
                     + "' AND image = '" + newsItem.imageOfANews
                     + "' AND url = '" + newsItem.urlOfANews
@@ -76,17 +77,16 @@ class NewsSavedDatabaseSQLite(
         db.close()
     }
 
-    fun searchNewsItemsSaved(newsItem: NewsItem): Boolean {
-        val db = getReadableDatabase()
+    fun searchNewsItemsSaved(db: SQLiteDatabase,newsItem: NewsItem): Boolean {
         val cursor = db.rawQuery("SELECT * FROM news" +
                 " WHERE headline = '" + newsItem.headlineOfANews
                 + "' AND image = '" + newsItem.imageOfANews
                 + "' AND url = '" + newsItem.urlOfANews
                 + "' AND date = '" + newsItem.dateOfANews + "'", null);
-        val itemsFound : Boolean = cursor.count >= 0
-        Log.d("Buscar un item: ","Registros encontrados: -"+ itemsFound +"-")
+        val itemsFound : Boolean = cursor.count > 0
+        Log.d("Buscar un item: ","Registros encontrados cursor.count: -"+ cursor.count +"-")
+        Log.d("Buscar un item: ","Registros encontrados itemFound: -"+ itemsFound +"-")
         cursor.close()
-        db.close()
         return itemsFound
     }
 }
