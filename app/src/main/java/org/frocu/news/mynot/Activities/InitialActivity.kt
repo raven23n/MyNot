@@ -5,23 +5,40 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import kotlinx.android.synthetic.main.button_news_saved.*
 import kotlinx.android.synthetic.main.content_initial.*
+import org.frocu.news.mynot.Adapters.NewspapersAdapter
+import org.frocu.news.mynot.Adapters.SectionAdapter
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
+import org.frocu.news.mynot.Databases.SectionDatabase
+import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.R
-import org.frocu.news.mynot.Singletons.FirestoreInstance.initialiceFirestoreInstance
+import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceFirestoreInstance
+import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceStorageInstance
+import org.frocu.news.mynot.Singletons.GlobalVariables.cleanAppArrays
 import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
+import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.initializeInstanceDatabase
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.instanceDatabase
+import org.frocu.news.mynot.Singletons.SectionList.sections
 
 class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/{
 
     lateinit var newspapersDatabase: NewspapersDatabase
+    lateinit var sectionDatabase: SectionDatabase
+
+    lateinit var sectionAdapter: SectionAdapter
+    lateinit var layoutManagerSections: RecyclerView.LayoutManager
+    lateinit var recyclerViewSections: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +48,11 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
     override fun onResume() {
         super.onResume()
         //initializeLayout()
+        cleanAppArrays()
         initializeInstanceDatabase(this)
         initialiceFirestoreInstance()
+        initialiceStorageInstance()
+        searchSectionsDB()
         initializeButtons()
     }
 
@@ -40,28 +60,32 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
         news_saved_background.setOnClickListener {
             openNewsSaved()
         }
-        cardview_science.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.science))
-        }
-        cardview_autonomous_communities.setOnClickListener{ openCCAA() }
-        cardview_sports.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.sports))
-        }
-        cardview_economy.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.economy))
-        }
-        cardview_international.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.international))
-        }
-        cardview_spain.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.spain))
-        }
-        cardview_technology.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.technology))
-        }
-        cardview_last_news.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.last_news))
     }
+
+    fun loadSections(){
+        Log.d("LoadSections", "Entro en onResume")
+        recyclerViewSections = findViewById(R.id.recycler_view_sections) as RecyclerView
+        Log.d("LoadSections", "Recycler view asignado")
+        sectionAdapter = SectionAdapter(this)
+        Log.d("LoadSections", "Creo adaptador")
+        sectionAdapter.setOnItemClickListener(View.OnClickListener { v ->
+            val position : Int? = recyclerViewSections.getChildAdapterPosition(v)
+            Log.d("LoadSections", "Posicion Elemento -"+position+"-")
+            if (position != null) {
+                var section = sections.get(position).sectionName
+                when(section){
+                    "C. Autónomas"-> openCCAA()
+                    else -> searchNewspapersInDB(section)
+                }
+            }
+        })
+        recyclerViewSections.adapter= sectionAdapter
+        Log.d("LoadSections", "Recycler view con adaptador")
+        layoutManagerSections = GridLayoutManager(this,2)
+        Log.d("LoadSections", "Creo GridLayoutManager")
+        recyclerViewSections.layoutManager = layoutManagerSections
+        Log.d("LoadSections", "Recycler view con GridLayoutManager asignado")
+        sectionAdapter.notifyDataSetChanged()
     }
 
     fun openCCAA () {
@@ -89,6 +113,22 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
         }
     }
 
+    fun searchSectionsDB(){
+        var sectionsListener = object:SectionDatabase.SectionsListener{
+            override fun onRespuesta(endOfQuery: Boolean) {
+                Log.d("onRespuesta", "Entro en Initial Sections onRespuesta")
+                if (endOfQuery) {
+                    for (section in sections) {
+                        Log.d("Sections InitialAct ", "-" + section.sectionName + "-")
+                    }
+                    loadSections()
+                }
+            }
+        }
+        sectionDatabase = SectionDatabaseFirestore()
+        sectionDatabase.readSections(sectionsListener = sectionsListener)
+    }
+
     fun searchNewspapersInDB(section : String){
         sectionActual = section
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
@@ -111,22 +151,3 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
         startActivity(intent)
     }
 }
-
-/*    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-    }
-
-    fun initializeLayout(){
-        val toolbar = findViewById(R.id.initial_toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        // Navigation Drawer
-
-        var drawer_layout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        var toggle = ActionBarDrawerToggle(this,
-                drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_close)
-
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
-        nav_view.setNavigationItemSelectedListener(this)
-    }*/

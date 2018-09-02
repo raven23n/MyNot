@@ -2,8 +2,9 @@ package org.frocu.news.mynot.Databases
 
 interface SectionDatabase {
 
-    public interface SectionsListener {
+    interface SectionsListener {
         fun onRespuesta(endOfQuery: Boolean)
     }
-    public fun readSections(sectionsListener:SectionsListener);
+    fun readSections(sectionsListener:SectionsListener);
+    fun readCCAA(sectionsListener:SectionsListener);
 }

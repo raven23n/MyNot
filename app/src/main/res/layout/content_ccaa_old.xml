@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_andalucia"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/andalucia_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/andalucia"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/andalucia_title"
+                        android:layout_below="@+id/andalucia_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/andalucia"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_aragon"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/aragon_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/aragon"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/aragon_title"
+                        android:layout_below="@+id/aragon_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/aragon"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_asturias"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/asturias_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/asturias"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/asturias_title"
+                        android:layout_below="@+id/asturias_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/asturias"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_cantabria"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/cantabria_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/cantabria"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/cantabria_title"
+                        android:layout_below="@+id/cantabria_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/cantabria"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_castillalamancha"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/castillalamancha_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/castillalamancha"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/castillalamancha_title"
+                        android:layout_below="@+id/castillalamancha_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/castillalamancha"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_castillaleon"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/castillaleon_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/castillaleon"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/castillaleon_title"
+                        android:layout_below="@+id/castillaleon_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/castillaleon"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_catalunya"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/catalunya_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/catalunya"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/catalunya_title"
+                        android:layout_below="@+id/catalunya_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/catalunya"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_ceutamelilla"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ceutamelilla_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/ceutamelilla"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/ceutamelilla_title"
+                        android:layout_below="@+id/ceutamelilla_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/ceutamelilla"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_comunidadvalenciana"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/comunidadvalenciana_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/comunidadvalenciana"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/comunidadvalenciana_title"
+                        android:layout_below="@+id/comunidadvalenciana_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/comunidadvalenciana"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_extremadura"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/extremadura_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/extremadura"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/extremadura_title"
+                        android:layout_below="@+id/extremadura_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/extremadura"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_galicia"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/galicia_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/galicia"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/galicia_title"
+                        android:layout_below="@+id/galicia_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/galicia"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_islasbaleares"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/islasbaleares_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/islasbaleares"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/islasbaleares_title"
+                        android:layout_below="@+id/islasbaleares_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/islasbaleares"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_islascanarias"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/islascanarias_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/islascanarias"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/islascanarias_title"
+                        android:layout_below="@+id/islascanarias_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/islascanarias"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_larioja"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/larioja_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/larioja"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/larioja_title"
+                        android:layout_below="@+id/larioja_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/larioja"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_madrid"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/madrid_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/madrid"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/madrid_title"
+                        android:layout_below="@+id/madrid_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/madrid"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_murcia"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/murcia_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/murcia"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/murcia_title"
+                        android:layout_below="@+id/murcia_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/murcia"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_navarra"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/navarra_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/navarra"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/navarra_title"
+                        android:layout_below="@+id/navarra_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/navarra"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview_paisvasco"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/paisvasco_icon"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:padding="8dp"
+                        android:background="@drawable/paisvasco"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/paisvasco_title"
+                        android:layout_below="@+id/paisvasco_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/paisvasco"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

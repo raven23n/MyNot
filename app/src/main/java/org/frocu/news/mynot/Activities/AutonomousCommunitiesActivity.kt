@@ -2,26 +2,43 @@ package org.frocu.news.mynot.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import kotlinx.android.synthetic.main.content_ccaa.*
+import org.frocu.news.mynot.Adapters.CCAAAdapter
+import org.frocu.news.mynot.Adapters.SectionAdapter
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
+import org.frocu.news.mynot.Databases.SectionDatabase
+import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.CCAAList.ccaaList
+import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
+import org.frocu.news.mynot.Singletons.SectionList
 
 class AutonomousCommunitiesActivity : AppCompatActivity() {
 
     lateinit var newspapersDatabase: NewspapersDatabase
+    lateinit var sectionDatabase: SectionDatabase
+
+    lateinit var ccaaAdapter: CCAAAdapter
+    lateinit var layoutManagerSections: RecyclerView.LayoutManager
+    lateinit var recyclerViewSections: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ccaa)
+        setContentView(R.layout.content_ccaa)
     }
 
     override fun onResume() {
         super.onResume()
         initializeLayout()
+        searchCCAADB()
         initializeButtons()
     }
 
@@ -29,24 +46,45 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun initializeButtons(){
-        cardview_andalucia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.andalucia)) }
-        cardview_aragon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.aragon)) }
-        cardview_asturias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.asturias)) }
-        cardview_cantabria.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.cantabria)) }
-        cardview_castillalamancha.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillalamancha)) }
-        cardview_castillaleon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillaleon)) }
-        cardview_catalunya.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.catalunya)) }
-        cardview_ceutamelilla.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.ceutamelilla)) }
-        cardview_comunidadvalenciana.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.comunidadvalenciana)) }
-        cardview_extremadura.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.extremadura)) }
-        cardview_galicia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.galicia)) }
-        cardview_islasbaleares.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islasbaleares)) }
-        cardview_islascanarias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islascanarias)) }
-        cardview_larioja.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.larioja)) }
-        cardview_madrid.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.madrid)) }
-        cardview_murcia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.murcia)) }
-        cardview_navarra.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.navarra)) }
-        cardview_paisvasco.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.paisvasco)) }
+    }
+
+    fun loadCCAA(){
+        Log.d("LoadSections", "Entro en onResume")
+        recyclerViewSections = findViewById(R.id.recycler_view_ccaa) as RecyclerView
+        Log.d("LoadSections", "Recycler view asignado")
+        ccaaAdapter = CCAAAdapter(this)
+        Log.d("LoadSections", "Creo adaptador")
+        ccaaAdapter.setOnItemClickListener(View.OnClickListener { v ->
+            val position : Int? = recyclerViewSections.getChildAdapterPosition(v)
+            Log.d("LoadSections", "Posicion Elemento -"+position+"-")
+            if (position != null) {
+                var section = ccaaList.get(position).sectionName
+                searchCCAANewspapersInDB(section)
+            }
+        })
+        recyclerViewSections.adapter= ccaaAdapter
+        Log.d("LoadSections", "Recycler view con adaptador")
+        layoutManagerSections = GridLayoutManager(this,2)
+        Log.d("LoadSections", "Creo GridLayoutManager")
+        recyclerViewSections.layoutManager = layoutManagerSections
+        Log.d("LoadSections", "Recycler view con GridLayoutManager asignado")
+        ccaaAdapter.notifyDataSetChanged()
+    }
+
+    fun searchCCAADB(){
+        var sectionsListener = object: SectionDatabase.SectionsListener{
+            override fun onRespuesta(endOfQuery: Boolean) {
+                Log.d("onRespuesta", "Entro en Initial Sections onRespuesta")
+                if (endOfQuery) {
+                    for (section in ccaaList) {
+                        Log.d("CCAA InitialAct ", "-" +  section.sectionName + "-")
+                    }
+                    loadCCAA()
+                }
+            }
+        }
+        sectionDatabase = SectionDatabaseFirestore()
+        sectionDatabase.readCCAA(sectionsListener = sectionsListener)
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
@@ -61,7 +99,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
                 }
             }
         }
-        newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities_db))
+        newspapersDatabase = NewspapersDatabaseFirestore(resources.getString(R.string.autonomous_communities))
         var countrySection = resources.getString(R.string.country_db)
         newspapersDatabase.readCCAANewspapers(country = countrySection,
                 autonomous_communities = autonomousCommunitySection,

@@ -2,18 +2,12 @@ package org.frocu.news.mynot.Databases
 
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import org.frocu.news.mynot.POJO.Newspaper
-import org.frocu.news.mynot.POJO.newspaperEmpty
-import org.frocu.news.mynot.Singletons.FirestoreInstance.instanceFirestoreDB
-import org.frocu.news.mynot.Singletons.NewspapersList
+import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.instanceFirestoreDB
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
-import org.jetbrains.annotations.NotNull
 
 class NewspapersDatabaseFirestore(val section: String)
     : NewspapersDatabase{
