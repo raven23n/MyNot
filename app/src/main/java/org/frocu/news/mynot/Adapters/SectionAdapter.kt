@@ -3,6 +3,7 @@ package org.frocu.news.mynot.Adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -20,6 +21,7 @@ import com.google.firebase.storage.StorageReference
 import org.frocu.news.mynot.POJO.Section
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.instanceStorageRef
+import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
 import org.frocu.news.mynot.Singletons.SectionList
 import org.frocu.news.mynot.Singletons.SectionList.sections
 
@@ -48,6 +50,8 @@ class SectionAdapter(
         var thereIsConnection: Boolean? = true
         val objIncome = sections.get(position)
         holder.sectionTitle.text = objIncome.sectionName
+        var titleColor = objIncome.sectionColour
+        holder.sectionTitle.setBackgroundColor(Color.parseColor(titleColor))
         thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
             var urlSectionImage = instanceStorageRef.child("Secciones/"+objIncome.sectionName+".png")

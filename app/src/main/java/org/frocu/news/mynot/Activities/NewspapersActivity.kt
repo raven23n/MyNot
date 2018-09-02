@@ -1,6 +1,7 @@
 package org.frocu.news.mynot.Activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.View
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.GlobalVariables
 import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley
@@ -31,9 +33,11 @@ class NewspapersActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         this@NewspapersActivity.title = sectionActual
+        this@NewspapersActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
         Log.d("NewspapersActivity", "Entro en onResume")
         ImageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
         recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView
+        recyclerView.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
         Log.d("NewspapersActivity", "Recycler view asignado")
         newspapersAdapter = NewspapersAdapter(this)
         Log.d("NewspapersActivity", "Creo adaptador")

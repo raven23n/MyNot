@@ -1,6 +1,7 @@
 package org.frocu.news.mynot.Activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
@@ -17,6 +18,7 @@ import org.frocu.news.mynot.Databases.SectionDatabase
 import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.CCAAList.ccaaList
+import org.frocu.news.mynot.Singletons.GlobalVariables
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.SectionList
@@ -43,6 +45,8 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun initializeLayout(){
+        this@AutonomousCommunitiesActivity.title = GlobalVariables.sectionActual
+        this@AutonomousCommunitiesActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
     }
 
     fun initializeButtons(){
@@ -51,6 +55,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     fun loadCCAA(){
         Log.d("LoadSections", "Entro en onResume")
         recyclerViewSections = findViewById(R.id.recycler_view_ccaa) as RecyclerView
+        recyclerViewSections.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
         Log.d("LoadSections", "Recycler view asignado")
         ccaaAdapter = CCAAAdapter(this)
         Log.d("LoadSections", "Creo adaptador")
@@ -88,6 +93,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
+        GlobalVariables.sectionActual = autonomousCommunitySection
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en CCAA onRespuesta")

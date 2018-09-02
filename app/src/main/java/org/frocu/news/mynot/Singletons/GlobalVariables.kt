@@ -9,6 +9,7 @@ object GlobalVariables {
     var positionNewspaperInCharge : Int = -1
     var urlNewsItemActual : String = ""
     var sectionActual : String = ""
+    var colorActual : String = ""
 
     fun cleanAppArrays(){
         sections.clear()

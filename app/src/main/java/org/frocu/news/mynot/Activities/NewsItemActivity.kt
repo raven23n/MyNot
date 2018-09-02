@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.ProgressDialog.show
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.AsyncTask.execute
 import android.os.Bundle
@@ -32,8 +33,7 @@ import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
 import java.util.ArrayList
 import org.frocu.news.mynot.Singletons.LongClickContextMenu.createContextMenu
 import android.telecom.Call.Details
-
-
+import org.frocu.news.mynot.Singletons.GlobalVariables
 
 
 class NewsItemActivity : AppCompatActivity()  {
@@ -98,6 +98,7 @@ class NewsItemActivity : AppCompatActivity()  {
     fun chargeNewsItemActivity(){
         initializeImageLoaderVolley(this@NewsItemActivity)
         newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
+        newsItemRecyclerView.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
         Log.d("NewsItemActivity", "Recycler view asignado")
         Log.d("NewsItemActivity", "Resgitro el context menú")
         newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)

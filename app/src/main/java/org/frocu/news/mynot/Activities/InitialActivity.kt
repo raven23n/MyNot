@@ -21,7 +21,9 @@ import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceFirestoreInstance
 import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceStorageInstance
+import org.frocu.news.mynot.Singletons.GlobalVariables
 import org.frocu.news.mynot.Singletons.GlobalVariables.cleanAppArrays
+import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
 import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley
@@ -73,6 +75,7 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
             Log.d("LoadSections", "Posicion Elemento -"+position+"-")
             if (position != null) {
                 var section = sections.get(position).sectionName
+                colorActual = sections.get(position).sectionColour
                 when(section){
                     "C. Autónomas"-> openCCAA()
                     else -> searchNewspapersInDB(section)
@@ -89,6 +92,7 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
     }
 
     fun openCCAA () {
+        sectionActual = "C. Autónomas"
         var intent = Intent(this, AutonomousCommunitiesActivity::class.java)
         startActivity (intent)
     }
