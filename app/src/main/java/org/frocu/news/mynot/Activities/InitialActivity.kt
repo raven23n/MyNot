@@ -1,12 +1,9 @@
 package org.frocu.news.mynot.Activities
 
-import android.app.Dialog
-import android.app.ProgressDialog.show
 import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.INotificationSideChannel
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import kotlinx.android.synthetic.main.button_news_saved.*
@@ -14,7 +11,7 @@ import kotlinx.android.synthetic.main.content_initial.*
 import org.frocu.news.mynot.Databases.NewspapersDatabase
 import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
 import org.frocu.news.mynot.R
-import org.frocu.news.mynot.Singletons.GlobalVariables
+import org.frocu.news.mynot.Singletons.FirestoreInstance.initialiceFirestoreInstance
 import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
 import org.frocu.news.mynot.Singletons.NewsItemList.news
@@ -35,6 +32,7 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
         super.onResume()
         //initializeLayout()
         initializeInstanceDatabase(this)
+        initialiceFirestoreInstance()
         initializeButtons()
     }
 
@@ -43,27 +41,27 @@ class InitialActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSe
             openNewsSaved()
         }
         cardview_science.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.science_db))
+            searchNewspapersInDB(resources.getString(R.string.science))
         }
         cardview_autonomous_communities.setOnClickListener{ openCCAA() }
         cardview_sports.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.sports_db))
+            searchNewspapersInDB(resources.getString(R.string.sports))
         }
         cardview_economy.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.economy_db))
+            searchNewspapersInDB(resources.getString(R.string.economy))
         }
         cardview_international.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.international_db))
+            searchNewspapersInDB(resources.getString(R.string.international))
         }
         cardview_spain.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.spain_db))
+            searchNewspapersInDB(resources.getString(R.string.spain))
         }
         cardview_technology.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.technology_db))
+            searchNewspapersInDB(resources.getString(R.string.technology))
         }
         cardview_last_news.setOnClickListener{
-            searchNewspapersInDB(resources.getString(R.string.last_news_db))
-        }
+            searchNewspapersInDB(resources.getString(R.string.last_news))
+    }
     }
 
     fun openCCAA () {

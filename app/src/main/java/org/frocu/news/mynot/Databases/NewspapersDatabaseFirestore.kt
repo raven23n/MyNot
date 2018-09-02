@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.POJO.newspaperEmpty
+import org.frocu.news.mynot.Singletons.FirestoreInstance.instanceFirestoreDB
 import org.frocu.news.mynot.Singletons.NewspapersList
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.jetbrains.annotations.NotNull
@@ -21,8 +22,7 @@ class NewspapersDatabaseFirestore(val section: String)
     var endOfQuery: Boolean
 
     init {
-        var sectionDB:FirebaseFirestore = FirebaseFirestore.getInstance()
-        newpapersCollectionReference = sectionDB.collection(section)
+        newpapersCollectionReference = instanceFirestoreDB.collection(section)
         endOfQuery = false
     }
 

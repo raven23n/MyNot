@@ -29,24 +29,24 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun initializeButtons(){
-        cardview_andalucia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.andalucia_db)) }
-        cardview_aragon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.aragon_db)) }
-        cardview_asturias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.asturias_db)) }
-        cardview_cantabria.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.cantabria_db)) }
-        cardview_castillalamancha.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillalamancha_db)) }
-        cardview_castillaleon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillaleon_db)) }
+        cardview_andalucia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.andalucia)) }
+        cardview_aragon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.aragon)) }
+        cardview_asturias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.asturias)) }
+        cardview_cantabria.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.cantabria)) }
+        cardview_castillalamancha.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillalamancha)) }
+        cardview_castillaleon.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.castillaleon)) }
         cardview_catalunya.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.catalunya)) }
-        cardview_ceutamelilla.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.ceutamelilla_db)) }
-        cardview_comunidadvalenciana.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.comunidadvalenciana_db)) }
-        cardview_extremadura.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.extremadura_db)) }
-        cardview_galicia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.galicia_db)) }
-        cardview_islasbaleares.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islasbaleares_db)) }
-        cardview_islascanarias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islascanarias_db)) }
-        cardview_larioja.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.larioja_db)) }
-        cardview_madrid.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.madrid_db)) }
-        cardview_murcia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.murcia_db)) }
-        cardview_navarra.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.navarra_db)) }
-        cardview_paisvasco.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.paisvasco_db)) }
+        cardview_ceutamelilla.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.ceutamelilla)) }
+        cardview_comunidadvalenciana.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.comunidadvalenciana)) }
+        cardview_extremadura.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.extremadura)) }
+        cardview_galicia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.galicia)) }
+        cardview_islasbaleares.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islasbaleares)) }
+        cardview_islascanarias.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.islascanarias)) }
+        cardview_larioja.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.larioja)) }
+        cardview_madrid.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.madrid)) }
+        cardview_murcia.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.murcia)) }
+        cardview_navarra.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.navarra)) }
+        cardview_paisvasco.setOnClickListener { searchCCAANewspapersInDB(resources.getString(R.string.paisvasco)) }
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
