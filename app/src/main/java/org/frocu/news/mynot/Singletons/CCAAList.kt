@@ -4,6 +4,29 @@ import org.frocu.news.mynot.POJO.Section
 import org.frocu.news.mynot.Singletons.SectionList.sections
 
 object CCAAList {
+
+    val staticCCAAName = arrayOf(
+            "Andalucía",
+            "Aragón",
+            "Asturias",
+            "Cantabria",
+            "Castilla-La Mancha",
+            "Castilla y León",
+            "Cataluña",
+            "Ceuta y Melilla",
+            "C. Valenciana",
+            "Extremadura",
+            "Galicia",
+            "Islas Baleares",
+            "Islas Canarias",
+            "La Rioja",
+            "Madrid",
+            "Murcia",
+            "Navarra",
+            "País Vasco"
+    )
+
+    val staticCCAAColor = "#A3FF8D"
     var ccaaList : ArrayList <Section> = ArrayList()
 
     fun getCCAAItem(pos: Int): Section? {

@@ -32,8 +32,12 @@ class NewspapersActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        this@NewspapersActivity.title = sectionActual
-        this@NewspapersActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
+        /*this@NewspapersActivity.title = sectionActual
+        this@NewspapersActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)*/
+        this@NewspapersActivity.onTitleChanged(
+                GlobalVariables.sectionActual,
+                Color.parseColor(GlobalVariables.colorActual)
+        )
         Log.d("NewspapersActivity", "Entro en onResume")
         ImageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
         recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView

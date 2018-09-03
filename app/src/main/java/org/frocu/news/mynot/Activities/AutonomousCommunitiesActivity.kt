@@ -45,8 +45,12 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun initializeLayout(){
-        this@AutonomousCommunitiesActivity.title = GlobalVariables.sectionActual
-        this@AutonomousCommunitiesActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
+        //this@AutonomousCommunitiesActivity.title = GlobalVariables.sectionActual
+        //this@AutonomousCommunitiesActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
+        this@AutonomousCommunitiesActivity.onTitleChanged(
+                GlobalVariables.sectionActual,
+                Color.parseColor(GlobalVariables.colorActual)
+        )
     }
 
     fun initializeButtons(){
@@ -77,19 +81,9 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun searchCCAADB(){
-        var sectionsListener = object: SectionDatabase.SectionsListener{
-            override fun onRespuesta(endOfQuery: Boolean) {
-                Log.d("onRespuesta", "Entro en Initial Sections onRespuesta")
-                if (endOfQuery) {
-                    for (section in ccaaList) {
-                        Log.d("CCAA InitialAct ", "-" +  section.sectionName + "-")
-                    }
-                    loadCCAA()
-                }
-            }
-        }
         sectionDatabase = SectionDatabaseFirestore()
-        sectionDatabase.readCCAA(sectionsListener = sectionsListener)
+        sectionDatabase.readCCAA()
+        loadCCAA()
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
@@ -111,7 +105,6 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
                 autonomous_communities = autonomousCommunitySection,
                 newspapersListener = newspapersListener)
     }
-
 
     fun startNewspapersActivity(){
         val intent = Intent(this, NewspapersActivity::class.java)
