@@ -15,9 +15,12 @@ import org.frocu.news.mynot.Adapters.CCAAAdapter
 import org.frocu.news.mynot.Databases.*
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.CCAAList.ccaaList
+import org.frocu.news.mynot.Singletons.CCAAList.orderByNumberOfAccessToCCAA
 import org.frocu.news.mynot.Singletons.GlobalVariables
+import org.frocu.news.mynot.Singletons.GlobalVariables.updateSharedPreference
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.SectionList
+import org.frocu.news.mynot.Singletons.SectionList.sections
 
 class AutonomousCommunitiesActivity : AppCompatActivity() {
 
@@ -47,6 +50,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
                 GlobalVariables.sectionActual,
                 Color.parseColor(GlobalVariables.colorActual)
         )
+        ccaaList.clear()
     }
 
     fun initializeButtons(){
@@ -54,6 +58,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
 
     fun searchCCAADB(){
         var accessAutonomousCommunitiesActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessAutonomousCommunitiesActivity")
+        Log.d("LoadSections", "Entro en accessAutonomousCommunitiesActivity -"+accessAutonomousCommunitiesActivity+"-")
         if (accessAutonomousCommunitiesActivity == "N") {
             var sectionDatabaseArray = SectionDatabaseArray()
             sectionDatabaseArray.searchSection("C")
@@ -72,7 +77,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
                         }
                     })
                     .show()
-            GlobalVariables.updateSharedPreference(this, "accessAutonomousCommunitiesActivity", "S")
+            updateSharedPreference(this, "accessAutonomousCommunitiesActivity", "S")
         }else{
             sectionDatabase = SectionDatabaseSQLite(this)
             sectionDatabase.searchSection("C")
@@ -82,6 +87,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
 
 
     fun loadCCAA(){
+        orderByNumberOfAccessToCCAA()
         Log.d("LoadSections", "Entro en onResume")
         recyclerViewSections = findViewById(R.id.recycler_view_ccaa) as RecyclerView
         recyclerViewSections.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
@@ -93,7 +99,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
             Log.d("LoadSections", "Posicion Elemento -"+position+"-")
             if (position != null) {
                 var section = ccaaList.get(position).sectionName
-                sectionDatabase.updateCountSections(SectionList.sections.get(position),
+                sectionDatabase.updateCountSections(ccaaList.get(position),
                         "C",
                         position)
                 searchCCAANewspapersInDB(section)

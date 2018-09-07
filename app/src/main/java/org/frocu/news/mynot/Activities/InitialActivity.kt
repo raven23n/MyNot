@@ -25,6 +25,7 @@ import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.initializeInstanceDatabase
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.instanceDatabase
+import org.frocu.news.mynot.Singletons.SectionList.orderByNumberOfAccessToSection
 import org.frocu.news.mynot.Singletons.SectionList.sections
 
 class InitialActivity : AppCompatActivity(){
@@ -79,6 +80,7 @@ class InitialActivity : AppCompatActivity(){
 
 
     fun loadSections(){
+        orderByNumberOfAccessToSection()
         Log.d("LoadSections", "Entro en onResume")
         recyclerViewSections = findViewById(R.id.recycler_view_sections) as RecyclerView
         Log.d("LoadSections", "Recycler view asignado")
@@ -93,7 +95,7 @@ class InitialActivity : AppCompatActivity(){
                 when(section){
                     "C. Autónomas"-> {
                         sectionDatabase.updateCountSections(sections.get(position),
-                                "C",
+                                "S",
                                 position)
                         openCCAA()
                     }

@@ -2,6 +2,7 @@ package org.frocu.news.mynot.Singletons
 
 import org.frocu.news.mynot.POJO.Section
 import org.frocu.news.mynot.Singletons.SectionList.sections
+import java.util.*
 
 object CCAAList {
 
@@ -43,6 +44,10 @@ object CCAAList {
     }
 
     fun orderByNumberOfAccessToCCAA(){
-
+        Collections.sort(ccaaList, object : Comparator<Section> {
+            override fun compare(sec1: Section, sec2: Section): Int {
+                return sec2.numberOfAccessToSection.compareTo(sec1.numberOfAccessToSection)
+            }
+        })
     }
 }

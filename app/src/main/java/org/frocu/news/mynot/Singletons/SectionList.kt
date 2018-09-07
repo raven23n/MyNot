@@ -2,6 +2,7 @@ package org.frocu.news.mynot.Singletons
 
 import android.graphics.Color
 import org.frocu.news.mynot.POJO.Section
+import java.util.*
 
 object SectionList {
     val staticSectionName = arrayOf(
@@ -42,6 +43,11 @@ object SectionList {
     }
 
     fun orderByNumberOfAccessToSection(){
-
+        //Clase anónima
+        Collections.sort(sections, object : Comparator<Section> {
+            override fun compare(sec1: Section, sec2: Section): Int {
+                return sec2.numberOfAccessToSection.compareTo(sec1.numberOfAccessToSection)
+            }
+        })
     }
 }
