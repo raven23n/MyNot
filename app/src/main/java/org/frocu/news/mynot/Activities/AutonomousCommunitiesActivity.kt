@@ -1,25 +1,21 @@
 package org.frocu.news.mynot.Activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.util.Log
 import android.view.View
-import kotlinx.android.synthetic.main.content_ccaa.*
 import org.frocu.news.mynot.Adapters.CCAAAdapter
-import org.frocu.news.mynot.Adapters.SectionAdapter
-import org.frocu.news.mynot.Databases.NewspapersDatabase
-import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
-import org.frocu.news.mynot.Databases.SectionDatabase
-import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
+import org.frocu.news.mynot.Databases.*
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.CCAAList.ccaaList
 import org.frocu.news.mynot.Singletons.GlobalVariables
-import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.SectionList
 
@@ -56,6 +52,35 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     fun initializeButtons(){
     }
 
+    fun searchCCAADB(){
+        var accessAutonomousCommunitiesActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessAutonomousCommunitiesActivity")
+        if (accessAutonomousCommunitiesActivity == "N") {
+            var sectionDatabaseArray = SectionDatabaseArray()
+            sectionDatabaseArray.searchSection("C")
+            sectionDatabase = SectionDatabaseSQLite(this)
+            sectionDatabase.saveSections("C")
+            var message = "En esta ventana se mostrarán las distintas Comunidades Autónomas de España. <br><br>" +
+                    "Pulsa sobre la comunidad de la que deseas conocer su actualidad. <br><br>" +
+                    "Al igual que en las secciones principales, éstas se irán reordenando para mostrar las que más uses en los primeros lugares."
+            AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage(Html.fromHtml(message))
+                    .setPositiveButton("OK", DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+                        fun onClick(dialog: DialogInterface, id:Int){
+                            dialog.cancel()
+                        }
+                    })
+                    .show()
+            GlobalVariables.updateSharedPreference(this, "accessAutonomousCommunitiesActivity", "S")
+        }else{
+            sectionDatabase = SectionDatabaseSQLite(this)
+            sectionDatabase.searchSection("C")
+        }
+        loadCCAA()
+    }
+
+
     fun loadCCAA(){
         Log.d("LoadSections", "Entro en onResume")
         recyclerViewSections = findViewById(R.id.recycler_view_ccaa) as RecyclerView
@@ -68,6 +93,9 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
             Log.d("LoadSections", "Posicion Elemento -"+position+"-")
             if (position != null) {
                 var section = ccaaList.get(position).sectionName
+                sectionDatabase.updateCountSections(SectionList.sections.get(position),
+                        "C",
+                        position)
                 searchCCAANewspapersInDB(section)
             }
         })
@@ -78,12 +106,6 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
         recyclerViewSections.layoutManager = layoutManagerSections
         Log.d("LoadSections", "Recycler view con GridLayoutManager asignado")
         ccaaAdapter.notifyDataSetChanged()
-    }
-
-    fun searchCCAADB(){
-        sectionDatabase = SectionDatabaseFirestore()
-        sectionDatabase.readCCAA()
-        loadCCAA()
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){

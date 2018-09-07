@@ -1,6 +1,7 @@
 package org.frocu.news.mynot.Adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.ImageLoader
 import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.requestQueue*/
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.GlobalVariables
 import org.frocu.news.mynot.Singletons.NewsItemList
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley.imageLoader
@@ -35,6 +37,7 @@ class NewsItemAdapter(
         val v = inflater.inflate(R.layout.individual_news_item, null)
         v.setOnClickListener(onClickListener)
         v.setOnLongClickListener(onLongClickListener)
+        v.setBackgroundColor((Color.parseColor(GlobalVariables.colorActual)))
         return NewsItemAdapter.ViewHolder(v)
     }
 

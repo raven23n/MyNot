@@ -1,6 +1,9 @@
 package org.frocu.news.mynot.Databases
 
+import org.frocu.news.mynot.POJO.Section
+
 interface SectionDatabase {
-    fun readSections();
-    fun readCCAA();
+    fun searchSection(sectionType : String)
+    fun saveSections(sectionType : String)
+    fun updateCountSections(section : Section, sectionType: String, position: Int)
 }

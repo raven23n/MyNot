@@ -7,20 +7,20 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.button_news_saved.*
 import org.frocu.news.mynot.Adapters.SectionAdapter
-import org.frocu.news.mynot.Databases.NewspapersDatabase
-import org.frocu.news.mynot.Databases.NewspapersDatabaseFirestore
-import org.frocu.news.mynot.Databases.SectionDatabase
-import org.frocu.news.mynot.Databases.SectionDatabaseFirestore
+import org.frocu.news.mynot.Databases.*
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceFirestoreInstance
+import org.frocu.news.mynot.Singletons.GlobalVariables.checkSharedPreferencesKey
 import org.frocu.news.mynot.Singletons.GlobalVariables.cleanAppArrays
 import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
 import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
+import org.frocu.news.mynot.Singletons.GlobalVariables.updateSharedPreference
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.initializeInstanceDatabase
@@ -51,8 +51,29 @@ class InitialActivity : AppCompatActivity(){
     }
 
     fun searchSectionsDB(){
-        sectionDatabase = SectionDatabaseFirestore()
-        sectionDatabase.readSections()
+        var accessInitialActivity = checkSharedPreferencesKey(this,"accessInitialActivity")
+        if (accessInitialActivity == "N") {
+            var sectionDatabaseArray = SectionDatabaseArray()
+            sectionDatabaseArray.searchSection("S")
+            sectionDatabase = SectionDatabaseSQLite(this)
+            sectionDatabase.saveSections("S")
+            var message = "En esta ventana se mostrarán las secciones disponibles. <br><br>" +
+                    "Conforme accedas a ellas, se irán reordenando para mostrar las que más uses en los primeros lugares."
+            AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage(Html.fromHtml(message))
+                    .setPositiveButton("OK",DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+                        fun onClick(dialog:DialogInterface, id:Int){
+                            dialog.cancel()
+                        }
+                    })
+                    .show()
+            updateSharedPreference(this,"accessInitialActivity","S")
+        }else{
+            sectionDatabase = SectionDatabaseSQLite(this)
+            sectionDatabase.searchSection("S")
+        }
         loadSections()
     }
 
@@ -70,8 +91,18 @@ class InitialActivity : AppCompatActivity(){
                 var section = sections.get(position).sectionName
                 colorActual = sections.get(position).sectionColour
                 when(section){
-                    "C. Autónomas"-> openCCAA()
-                    else -> searchNewspapersInDB(section)
+                    "C. Autónomas"-> {
+                        sectionDatabase.updateCountSections(sections.get(position),
+                                "C",
+                                position)
+                        openCCAA()
+                    }
+                    else -> {
+                        sectionDatabase.updateCountSections(sections.get(position),
+                                "S",
+                                position)
+                        searchNewspapersInDB(section)
+                    }
                 }
             }
         })

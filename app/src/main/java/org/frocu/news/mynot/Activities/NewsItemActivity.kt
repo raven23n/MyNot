@@ -33,7 +33,9 @@ import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
 import java.util.ArrayList
 import org.frocu.news.mynot.Singletons.LongClickContextMenu.createContextMenu
 import android.telecom.Call.Details
+import android.text.Html
 import org.frocu.news.mynot.Singletons.GlobalVariables
+import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
 
 
 class NewsItemActivity : AppCompatActivity()  {
@@ -64,11 +66,29 @@ class NewsItemActivity : AppCompatActivity()  {
     }
 
     fun executeAccessToNews(){
+        var accessNewsItemActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessNewsItemActivity")
+        if (accessNewsItemActivity == "N") {
+            var message = "En esta ventana se mostrarán las noticias del periódico elegido. <br><br>" +
+                    "Si pulsas sobre una noticia podrás acceder a la web del periódico y leer la noticia completa.<br><br>" +
+                    "Si mantienes pulsada una noticia podrás guardarla para consultarla más tarde o compartirla con quién quieras."
+            android.support.v7.app.AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage(Html.fromHtml(message))
+                    .setPositiveButton("OK", DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+                        fun onClick(dialog: DialogInterface, id:Int){
+                            dialog.cancel()
+                        }
+                    })
+                    .show()
+        }
+        GlobalVariables.updateSharedPreference(this, "accessNewsItemActivity", "S")
         AccessToNews().execute(newspapers[positionNewspaperInCharge].urlNewspaper)
     }
     fun startWebNavigatorActivity(urlNews: String) {
         val intent = Intent(this, NewsWebViewActivity::class.java)
         urlNewsItemActual = urlNews
+        Log.d("NewsItemActivity", "urlNewsItemActual -" + urlNewsItemActual + "-")
         startActivity(intent)
     }
 
@@ -91,6 +111,23 @@ class NewsItemActivity : AppCompatActivity()  {
                     })
                     .show()
         }else {
+            var accessSavedNewsItemActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessSavedNewsItemActivity")
+            if (accessSavedNewsItemActivity == "N") {
+                var message = "En esta ventana se mostrarán las noticias guardadas. <br><br>" +
+                        "Si pulsas sobre una noticia podrás acceder a la web del periódico y leer la noticia completa.<br><br>" +
+                        "Si mantienes pulsada una noticia podrás borrarla o compartirla con quién quieras."
+                android.support.v7.app.AlertDialog.Builder(this)
+                        .setTitle("MyNot")
+                        .setMessage(Html.fromHtml(message))
+                        .setPositiveButton("OK", DialogInterface.OnClickListener(){
+                            dialogInterface: DialogInterface, i: Int ->
+                            fun onClick(dialog: DialogInterface, id:Int){
+                                dialog.cancel()
+                            }
+                        })
+                        .show()
+                GlobalVariables.updateSharedPreference(this, "accessSavedNewsItemActivity", "S")
+            }
             chargeNewsItemActivity()
         }
     }
@@ -98,8 +135,9 @@ class NewsItemActivity : AppCompatActivity()  {
     fun chargeNewsItemActivity(){
         initializeImageLoaderVolley(this@NewsItemActivity)
         newsItemRecyclerView = findViewById(recycler_view_news_item) as RecyclerView
-        newsItemRecyclerView.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
+        //newsItemRecyclerView.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
         Log.d("NewsItemActivity", "Recycler view asignado")
+        Log.d("NewsItemActivity", "colorActual: -"+ colorActual + "-")
         Log.d("NewsItemActivity", "Resgitro el context menú")
         newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
         Log.d("NewsItemActivity", "Creo adaptador")
@@ -107,6 +145,7 @@ class NewsItemActivity : AppCompatActivity()  {
             val position = newsItemRecyclerView.getChildAdapterPosition(v)
             Log.d("NewsItemActivity", "Posicion Elemento -" + position + "-")
             val urlNews = news.get(position).urlOfANews
+            Log.d("NewsItemActivity", "urlNews -" + urlNews + "-")
             startWebNavigatorActivity(urlNews)
         })
         newsItemAdapter.setOnItemLongClickListener(View.OnLongClickListener { v ->

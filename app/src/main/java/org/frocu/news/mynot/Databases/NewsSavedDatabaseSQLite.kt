@@ -29,8 +29,8 @@ class NewsSavedDatabaseSQLite(
         val db = getWritableDatabase()
         val headline = newsItem.headlineOfANews
         val image = newsItem.imageOfANews
-        val url = newsItem.dateOfANews
-        val date = newsItem.urlOfANews
+        val url = newsItem.urlOfANews
+        val date = newsItem.dateOfANews
         if (!searchNewsItemsSaved(db,newsItem)) {
             db.execSQL("INSERT INTO news VALUES ( null, '"
                     + headline + "', '"

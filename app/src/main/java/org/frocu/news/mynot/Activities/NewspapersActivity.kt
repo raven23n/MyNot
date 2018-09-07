@@ -1,12 +1,15 @@
 package org.frocu.news.mynot.Activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.util.Log
 import android.view.View
 import org.frocu.news.mynot.Adapters.NewspapersAdapter
@@ -32,12 +35,26 @@ class NewspapersActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        /*this@NewspapersActivity.title = sectionActual
-        this@NewspapersActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)*/
         this@NewspapersActivity.onTitleChanged(
                 GlobalVariables.sectionActual,
                 Color.parseColor(GlobalVariables.colorActual)
         )
+        var accessNewspapersActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessNewspapersActivity")
+        if (accessNewspapersActivity == "N") {
+            var message = "En esta ventana se mostrarán los periódicos disponibles para la sección elegida. <br><br>" +
+                    "Pulsa sobre un periódico para acceder a sus noticias."
+            AlertDialog.Builder(this)
+                    .setTitle("MyNot")
+                    .setMessage(Html.fromHtml(message))
+                    .setPositiveButton("OK", DialogInterface.OnClickListener(){
+                        dialogInterface: DialogInterface, i: Int ->
+                        fun onClick(dialog: DialogInterface, id:Int){
+                            dialog.cancel()
+                        }
+                    })
+                    .show()
+            GlobalVariables.updateSharedPreference(this, "accessNewspapersActivity", "S")
+        }
         Log.d("NewspapersActivity", "Entro en onResume")
         ImageLoaderVolley.initializeImageLoaderVolley(this@NewspapersActivity)
         recyclerView = findViewById(R.id.recycler_view_newspapers) as RecyclerView
