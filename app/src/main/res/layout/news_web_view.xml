@@ -3,6 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/web_view_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/context_toolbar"/>
+    </android.support.v7.widget.Toolbar>
     <ProgressBar
         android:id="@+id/progressbar_web_view"
         style="?android:attr/progressBarStyleHorizontal"

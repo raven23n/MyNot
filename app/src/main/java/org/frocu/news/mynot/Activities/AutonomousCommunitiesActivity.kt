@@ -33,7 +33,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_ccaa)
+        setContentView(R.layout.activity_ccaa)
     }
 
     override fun onResume() {

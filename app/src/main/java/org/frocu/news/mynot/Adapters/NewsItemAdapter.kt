@@ -16,6 +16,7 @@ import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.requestQueue*/
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.GlobalVariables
+import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.NewsItemList
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley.imageLoader
@@ -37,16 +38,17 @@ class NewsItemAdapter(
         val v = inflater.inflate(R.layout.individual_news_item, null)
         v.setOnClickListener(onClickListener)
         v.setOnLongClickListener(onLongClickListener)
-        v.setBackgroundColor((Color.parseColor(GlobalVariables.colorActual)))
+//        v.setBackgroundResource(R.drawable.individual_border)
+        if(positionNewspaperInCharge != -1)
+            v.setBackgroundColor((Color.parseColor(GlobalVariables.colorActual)))
         return NewsItemAdapter.ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: NewsItemAdapter.ViewHolder, position: Int) {
-        var thereIsConnection: Boolean? = true
         val objIncome = news.get(position)
         holder.headlineOfANewsIndividual.text = objIncome.headlineOfANews
         holder.dateOfANewsIndividual.text = objIncome.dateOfANews
-        thereIsConnection = isNetworkConnected()
+        var thereIsConnection = isNetworkConnected()
         if (thereIsConnection) {
             imageLoader.get(objIncome.imageOfANews, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {

@@ -11,6 +11,7 @@ import android.os.AsyncTask.execute
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -34,6 +35,7 @@ import java.util.ArrayList
 import org.frocu.news.mynot.Singletons.LongClickContextMenu.createContextMenu
 import android.telecom.Call.Details
 import android.text.Html
+import android.widget.Toast
 import org.frocu.news.mynot.Singletons.GlobalVariables
 import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
 
@@ -139,6 +141,8 @@ class NewsItemActivity : AppCompatActivity()  {
         Log.d("NewsItemActivity", "Recycler view asignado")
         Log.d("NewsItemActivity", "colorActual: -"+ colorActual + "-")
         Log.d("NewsItemActivity", "Resgitro el context menú")
+        newsItemRecyclerView.addItemDecoration(DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL))
         newsItemAdapter = NewsItemAdapter(this@NewsItemActivity)
         Log.d("NewsItemActivity", "Creo adaptador")
         newsItemAdapter.setOnItemClickListener(View.OnClickListener { v ->
@@ -183,41 +187,17 @@ class NewsItemActivity : AppCompatActivity()  {
                 Log.d("NewsItemActivity URL", "-" + params[0] + "-")
                 parser.parse(params[0], handler)
             } catch (e: ParserConfigurationException) {
+                Toast.makeText(this@NewsItemActivity,"Error al cargar la página.",Toast.LENGTH_LONG).show()
                 e.printStackTrace()
-                val errorNews = NewsItem(
-                        headlineOfANews = "Error al cargar la página.",
-                        imageOfANews = "",
-                        urlOfANews = "",
-                        dateOfANews = ""
-                )
-                news.add(errorNews)
             } catch (e: SAXException) {
+                Toast.makeText(this@NewsItemActivity,"Error al transformar la página.",Toast.LENGTH_LONG).show()
                 e.printStackTrace()
-                val errorNews = NewsItem(
-                        headlineOfANews = "Error al transformar la página.",
-                        imageOfANews = "",
-                        urlOfANews = "",
-                        dateOfANews = ""
-                )
-                news.add(errorNews)
             } catch (e: IOException) {
+                Toast.makeText(this@NewsItemActivity,"No hay acceso a internet.",Toast.LENGTH_LONG).show()
                 e.printStackTrace()
-                val errorNews = NewsItem(
-                        headlineOfANews = "No se tiene acceso a internet.",
-                        imageOfANews = "",
-                        urlOfANews = "",
-                        dateOfANews = ""
-                )
-                news.add(errorNews)
             } catch (e: Exception) {
+                Toast.makeText(this@NewsItemActivity,"Error al cargar la página.",Toast.LENGTH_LONG).show()
                 e.printStackTrace()
-                val errorNews = NewsItem(
-                        headlineOfANews = "Error general al cargar la página.",
-                        imageOfANews = "",
-                        urlOfANews = "",
-                        dateOfANews = ""
-                )
-                news.add(errorNews)
             }
             return news
         }
