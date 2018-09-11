@@ -202,7 +202,6 @@ class NewsItemActivity : AppCompatActivity()  {
             return news
         }
 
-
         override fun onPostExecute(news: ArrayList<NewsItem>) {
             chargeNewsItemActivity()
 /*            initializeImageLoaderVolley(this@NewsItemActivity)

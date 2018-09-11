@@ -29,6 +29,7 @@ class NewspapersDatabaseFirestore(val section: String)
                             override fun onComplete(task: Task<QuerySnapshot>) {
                                 var newspapersTask : ArrayList <Newspaper> = ArrayList()
                                 if (task.isSuccessful) {
+                                    var stateOk: Long = 0
                                     for (newspapersDocument in task.result.documents) {
                                         var newspaperReceived = Newspaper(
                                                 nameNewspaper = newspapersDocument.id,
@@ -37,8 +38,8 @@ class NewspapersDatabaseFirestore(val section: String)
                                                 nameClaseParserNewspaper = newspapersDocument.data?.getValue("nombreClaseParser") as String,
                                                 urlNewspaper =  newspapersDocument.data?.getValue("url") as String
                                         )
-                                        newspapersTask.add(newspaperReceived)
-
+                                        if(newspaperReceived.stateNewspaper.equals(stateOk))
+                                            newspapersTask.add(newspaperReceived)
                                     }
                                 } else {
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
@@ -68,6 +69,7 @@ class NewspapersDatabaseFirestore(val section: String)
                             override fun onComplete(task: Task<QuerySnapshot>) {
                                 var newspapersTask : ArrayList <Newspaper> = ArrayList()
                                 if (task.isSuccessful) {
+                                    var stateOk: Long = 0
                                     for (newspapersDocument in task.result.documents) {
                                         var newspaperReceived = Newspaper(
                                                 nameNewspaper = newspapersDocument.id,
@@ -76,7 +78,8 @@ class NewspapersDatabaseFirestore(val section: String)
                                                 nameClaseParserNewspaper = newspapersDocument.data?.getValue("nombreClaseParser") as String,
                                                 urlNewspaper =  newspapersDocument.data?.getValue("url") as String
                                         )
-                                        newspapersTask.add(newspaperReceived)
+                                        if(newspaperReceived.stateNewspaper.equals(stateOk))
+                                            newspapersTask.add(newspaperReceived)
                                     }
                                 } else {
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
