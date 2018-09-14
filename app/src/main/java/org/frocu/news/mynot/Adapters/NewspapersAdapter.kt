@@ -12,6 +12,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 import org.frocu.news.mynot.POJO.Newspaper
 import org.frocu.news.mynot.R
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.isNetworkConnected
 import org.frocu.news.mynot.Singletons.NewspapersList
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley.imageLoader
@@ -39,8 +40,7 @@ class NewspapersAdapter(
         val objIncome = newspapers.get(position)
         holder.newspaperName.text = objIncome.nameNewspaper
 
-        var thereIsConnection = isNetworkConnected()
-        if (thereIsConnection) {
+        if (isNetworkConnected(context)) {
             imageLoader.get(objIncome.imageNewspaper, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                     val bitmap = response.bitmap
@@ -75,12 +75,6 @@ class NewspapersAdapter(
 
     fun setOnItemClickListener(onClick: View.OnClickListener) {
         onClickListener = onClick
-    }
-
-    private fun isNetworkConnected(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val ni = cm.activeNetworkInfo
-        return ni != null
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

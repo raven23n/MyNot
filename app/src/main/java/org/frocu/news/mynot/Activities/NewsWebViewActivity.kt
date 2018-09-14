@@ -1,6 +1,5 @@
 package org.frocu.news.mynot.Activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -9,11 +8,9 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
-import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.news_web_view.*
 import org.frocu.news.mynot.R
-import org.frocu.news.mynot.Singletons.GlobalVariables
-import org.frocu.news.mynot.Singletons.GlobalVariables.urlNewsItemActual
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.urlNewsItemActual
 
 
 class NewsWebViewActivity : AppCompatActivity() {

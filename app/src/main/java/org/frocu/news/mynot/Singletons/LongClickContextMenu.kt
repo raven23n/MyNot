@@ -3,13 +3,9 @@ package org.frocu.news.mynot.Singletons
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
-import android.support.v4.content.ContextCompat.startActivity
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import org.frocu.news.mynot.Activities.NewsItemActivity
-import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.instanceDatabase
 

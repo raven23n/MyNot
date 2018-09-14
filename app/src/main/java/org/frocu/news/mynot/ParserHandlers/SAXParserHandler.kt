@@ -2,7 +2,7 @@ package org.frocu.news.mynot.ParserHandlers
 
 import android.util.Log
 import org.frocu.news.mynot.POJO.NewsItem
-import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.xml.sax.Attributes

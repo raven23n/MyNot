@@ -10,17 +10,19 @@ import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.button_news_saved.*
 import org.frocu.news.mynot.Adapters.SectionAdapter
 import org.frocu.news.mynot.Databases.*
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.FirebaseToolsInstance.initialiceFirestoreInstance
-import org.frocu.news.mynot.Singletons.GlobalVariables.checkSharedPreferencesKey
-import org.frocu.news.mynot.Singletons.GlobalVariables.cleanAppArrays
-import org.frocu.news.mynot.Singletons.GlobalVariables.colorActual
-import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
-import org.frocu.news.mynot.Singletons.GlobalVariables.sectionActual
-import org.frocu.news.mynot.Singletons.GlobalVariables.updateSharedPreference
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.checkSharedPreferencesKey
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.cleanAppArrays
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.colorActual
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.isNetworkConnected
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.sectionActual
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.updateSharedPreference
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.frocu.news.mynot.Singletons.NewsSavedDatabaseObject.initializeInstanceDatabase
@@ -78,7 +80,6 @@ class InitialActivity : AppCompatActivity(){
         loadSections()
     }
 
-
     fun loadSections(){
         orderByNumberOfAccessToSection()
         Log.d("LoadSections", "Entro en onResume")
@@ -100,10 +101,14 @@ class InitialActivity : AppCompatActivity(){
                         openCCAA()
                     }
                     else -> {
-                        sectionDatabase.updateCountSections(sections.get(position),
-                                "S",
-                                position)
-                        searchNewspapersInDB(section)
+                        if(isNetworkConnected(this)) {
+                            sectionDatabase.updateCountSections(sections.get(position),
+                                    "S",
+                                    position)
+                            searchNewspapersInDB(section)
+                        }else{
+                            Toast.makeText(this,"No se detecta acceso a internet. Por favor, revise su conexión a internet y vuelva a intentarlo.", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
@@ -133,7 +138,11 @@ class InitialActivity : AppCompatActivity(){
                     for (newsp in newspapers) {
                         Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
                     }
+                    Log.d("onRespuesta", "Entro en true endOfQuery")
                     startNewspapersActivity()
+                }else{
+                    Toast.makeText(this@InitialActivity,"No hay periódicos disponibles para esta sección.", Toast.LENGTH_LONG).show()
+                    Log.d("onRespuesta", "Entro en false endOfQuery")
                 }
             }
         }

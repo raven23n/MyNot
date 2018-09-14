@@ -12,17 +12,17 @@ import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 class NewspapersDatabaseFirestore(val section: String)
     : NewspapersDatabase{
 
-    private var newpapersCollectionReference : CollectionReference
+    private var newspapersCollectionReference : CollectionReference
     var endOfQuery: Boolean
 
     init {
-        newpapersCollectionReference = instanceFirestoreDB.collection(section)
+        newspapersCollectionReference = instanceFirestoreDB.collection(section)
         endOfQuery = false
     }
 
     override fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener){
         newspapers.clear()
-        newpapersCollectionReference
+        newspapersCollectionReference
                 .get()
                 .addOnCompleteListener(
                         object: OnCompleteListener<QuerySnapshot> {
@@ -45,8 +45,12 @@ class NewspapersDatabaseFirestore(val section: String)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
                                 if(task.isComplete){
-                                    newspapers = newspapersTask
-                                    newspapersListener.onRespuesta(true)
+                                    if(newspapersTask.isNotEmpty()) {
+                                        newspapers = newspapersTask
+                                        newspapersListener.onRespuesta(true)
+                                    }else{
+                                        newspapersListener.onRespuesta(false)
+                                    }
                                 }
                             }
                         }
@@ -58,7 +62,7 @@ class NewspapersDatabaseFirestore(val section: String)
                                     autonomous_communities: String,
                                     newspapersListener: NewspapersDatabase.NewspapersListener) {
         newspapers.clear()
-        var newpapersCollectionReferenceCCAA = newpapersCollectionReference.
+        var newpapersCollectionReferenceCCAA = newspapersCollectionReference.
                 document(country).
                 collection(autonomous_communities)
         //Recuperar todos los documentos de una Collection
@@ -85,8 +89,12 @@ class NewspapersDatabaseFirestore(val section: String)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
                                 if(task.isComplete){
-                                    newspapers = newspapersTask
-                                    newspapersListener.onRespuesta(true)
+                                    if(newspapersTask.isNotEmpty()) {
+                                        newspapers = newspapersTask
+                                        newspapersListener.onRespuesta(true)
+                                    }else{
+                                        newspapersListener.onRespuesta(false)
+                                    }
                                 }
                             }
                         }

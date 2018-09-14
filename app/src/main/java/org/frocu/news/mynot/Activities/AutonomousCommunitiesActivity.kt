@@ -11,16 +11,16 @@ import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import org.frocu.news.mynot.Adapters.CCAAAdapter
 import org.frocu.news.mynot.Databases.*
 import org.frocu.news.mynot.R
 import org.frocu.news.mynot.Singletons.CCAAList.ccaaList
 import org.frocu.news.mynot.Singletons.CCAAList.orderByNumberOfAccessToCCAA
-import org.frocu.news.mynot.Singletons.GlobalVariables
-import org.frocu.news.mynot.Singletons.GlobalVariables.updateSharedPreference
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.isNetworkConnected
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.updateSharedPreference
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
-import org.frocu.news.mynot.Singletons.SectionList
-import org.frocu.news.mynot.Singletons.SectionList.sections
 
 class AutonomousCommunitiesActivity : AppCompatActivity() {
 
@@ -47,8 +47,8 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
         //this@AutonomousCommunitiesActivity.title = GlobalVariables.sectionActual
         //this@AutonomousCommunitiesActivity.titleColor = Color.parseColor(GlobalVariables.colorActual)
         this@AutonomousCommunitiesActivity.onTitleChanged(
-                GlobalVariables.sectionActual,
-                Color.parseColor(GlobalVariables.colorActual)
+                GlobalVariablesAndFuns.sectionActual,
+                Color.parseColor(GlobalVariablesAndFuns.colorActual)
         )
         ccaaList.clear()
     }
@@ -57,7 +57,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun searchCCAADB(){
-        var accessAutonomousCommunitiesActivity= GlobalVariables.checkSharedPreferencesKey(this, "accessAutonomousCommunitiesActivity")
+        var accessAutonomousCommunitiesActivity= GlobalVariablesAndFuns.checkSharedPreferencesKey(this, "accessAutonomousCommunitiesActivity")
         Log.d("LoadSections", "Entro en accessAutonomousCommunitiesActivity -"+accessAutonomousCommunitiesActivity+"-")
         if (accessAutonomousCommunitiesActivity == "N") {
             var sectionDatabaseArray = SectionDatabaseArray()
@@ -85,12 +85,11 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
         loadCCAA()
     }
 
-
     fun loadCCAA(){
         orderByNumberOfAccessToCCAA()
         Log.d("LoadSections", "Entro en onResume")
         recyclerViewSections = findViewById(R.id.recycler_view_ccaa) as RecyclerView
-        recyclerViewSections.setBackgroundColor(Color.parseColor(GlobalVariables.colorActual))
+        recyclerViewSections.setBackgroundColor(Color.parseColor(GlobalVariablesAndFuns.colorActual))
         Log.d("LoadSections", "Recycler view asignado")
         ccaaAdapter = CCAAAdapter(this)
         Log.d("LoadSections", "Creo adaptador")
@@ -98,11 +97,15 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
             val position : Int? = recyclerViewSections.getChildAdapterPosition(v)
             Log.d("LoadSections", "Posicion Elemento -"+position+"-")
             if (position != null) {
-                var section = ccaaList.get(position).sectionName
-                sectionDatabase.updateCountSections(ccaaList.get(position),
-                        "C",
-                        position)
-                searchCCAANewspapersInDB(section)
+                if(isNetworkConnected(this)) {
+                    var section = ccaaList.get(position).sectionName
+                    sectionDatabase.updateCountSections(ccaaList.get(position),
+                            "C",
+                            position)
+                    searchCCAANewspapersInDB(section)
+                }else{
+                    Toast.makeText(this,"No se detecta acceso a internet. Por favor, revise su conexión a internet y vuelva a intentarlo.", Toast.LENGTH_LONG).show()
+                }
             }
         })
         recyclerViewSections.adapter= ccaaAdapter
@@ -115,7 +118,7 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
     }
 
     fun searchCCAANewspapersInDB(autonomousCommunitySection : String){
-        GlobalVariables.sectionActual = autonomousCommunitySection
+        GlobalVariablesAndFuns.sectionActual = autonomousCommunitySection
         var newspapersListener = object:NewspapersDatabase.NewspapersListener{
             override fun onRespuesta(endOfQuery: Boolean) {
                 Log.d("onRespuesta", "Entro en CCAA onRespuesta")
@@ -123,7 +126,11 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
                     for (newsp in newspapers) {
                         Log.d("Periodicos InitialAct ", "-" + newsp.nameNewspaper + "-")
                     }
+                    Log.d("onRespuesta", "Entro en true endOfQuery")
                     startNewspapersActivity()
+                }else{
+                    Toast.makeText(this@AutonomousCommunitiesActivity,"No hsy periódicos disponibles para esta sección.", Toast.LENGTH_LONG).show()
+                    Log.d("onRespuesta", "Entro en false endOfQuery")
                 }
             }
         }

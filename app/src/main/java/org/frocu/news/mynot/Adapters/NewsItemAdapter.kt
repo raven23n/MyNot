@@ -15,8 +15,9 @@ import com.android.volley.toolbox.ImageLoader
 import org.frocu.news.mynot.Activities.NewsItemActivity.Companion.requestQueue*/
 import org.frocu.news.mynot.POJO.NewsItem
 import org.frocu.news.mynot.R
-import org.frocu.news.mynot.Singletons.GlobalVariables
-import org.frocu.news.mynot.Singletons.GlobalVariables.positionNewspaperInCharge
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.isNetworkConnected
+import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.NewsItemList
 import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley.imageLoader
@@ -40,7 +41,7 @@ class NewsItemAdapter(
         v.setOnLongClickListener(onLongClickListener)
 //        v.setBackgroundResource(R.drawable.individual_border)
         if(positionNewspaperInCharge != -1)
-            v.setBackgroundColor((Color.parseColor(GlobalVariables.colorActual)))
+            v.setBackgroundColor((Color.parseColor(GlobalVariablesAndFuns.colorActual)))
         return NewsItemAdapter.ViewHolder(v)
     }
 
@@ -48,8 +49,7 @@ class NewsItemAdapter(
         val objIncome = news.get(position)
         holder.headlineOfANewsIndividual.text = objIncome.headlineOfANews
         holder.dateOfANewsIndividual.text = objIncome.dateOfANews
-        var thereIsConnection = isNetworkConnected()
-        if (thereIsConnection) {
+        if (isNetworkConnected(context)) {
             imageLoader.get(objIncome.imageOfANews, object : ImageLoader.ImageListener {
                 override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                     val bitmap = response.bitmap
@@ -88,12 +88,6 @@ class NewsItemAdapter(
 
     fun setOnItemLongClickListener(onLongClick: View.OnLongClickListener) {
         onLongClickListener = onLongClick
-    }
-
-    private fun isNetworkConnected(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val ni = cm.activeNetworkInfo
-        return ni != null
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
