@@ -1,5 +1,8 @@
 package org.frocu.news.mynot.Databases
 
+import android.app.Application
+import android.app.ProgressDialog
+import android.content.Context
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -20,8 +23,13 @@ class NewspapersDatabaseFirestore(val section: String)
         endOfQuery = false
     }
 
-    override fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener){
+    override fun readNewspapers(newspapersListener: NewspapersDatabase.NewspapersListener,context: Context){
         newspapers.clear()
+        var mProgressDialog = ProgressDialog(context)
+        mProgressDialog.setMessage("Buscando...")
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        mProgressDialog.setCancelable(true)
+        mProgressDialog.show()
         newspapersCollectionReference
                 .get()
                 .addOnCompleteListener(
@@ -45,6 +53,9 @@ class NewspapersDatabaseFirestore(val section: String)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
                                 if(task.isComplete){
+                                    if (mProgressDialog.isShowing()) {
+                                        mProgressDialog.dismiss()
+                                    }
                                     if(newspapersTask.isNotEmpty()) {
                                         newspapers = newspapersTask
                                         newspapersListener.onRespuesta(true)
@@ -60,8 +71,14 @@ class NewspapersDatabaseFirestore(val section: String)
 
     override fun readCCAANewspapers(country:String,
                                     autonomous_communities: String,
-                                    newspapersListener: NewspapersDatabase.NewspapersListener) {
+                                    newspapersListener: NewspapersDatabase.NewspapersListener,
+                                    context: Context) {
         newspapers.clear()
+        var mProgressDialog = ProgressDialog(context)
+        mProgressDialog.setMessage("Buscando...")
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        mProgressDialog.setCancelable(true)
+        mProgressDialog.show()
         var newpapersCollectionReferenceCCAA = newspapersCollectionReference.
                 document(country).
                 collection(autonomous_communities)
@@ -89,6 +106,9 @@ class NewspapersDatabaseFirestore(val section: String)
                                     Log.d("Recuperar documentos", "Error getting documents: ", task.exception)
                                 }
                                 if(task.isComplete){
+                                    if (mProgressDialog.isShowing()) {
+                                        mProgressDialog.dismiss()
+                                    }
                                     if(newspapersTask.isNotEmpty()) {
                                         newspapers = newspapersTask
                                         newspapersListener.onRespuesta(true)

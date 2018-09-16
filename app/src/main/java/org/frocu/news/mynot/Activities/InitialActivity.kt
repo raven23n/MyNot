@@ -147,7 +147,8 @@ class InitialActivity : AppCompatActivity(){
             }
         }
         newspapersDatabase = NewspapersDatabaseFirestore(section)
-        newspapersDatabase.readNewspapers(newspapersListener = newspapersListener)
+        newspapersDatabase.readNewspapers(newspapersListener = newspapersListener,
+                context = this)
     }
 
     fun startNewspapersActivity(){

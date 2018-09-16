@@ -1,5 +1,6 @@
 package org.frocu.news.mynot.Activities
 
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -22,6 +23,7 @@ import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.isNetworkConnected
 import org.frocu.news.mynot.Singletons.GlobalVariablesAndFuns.positionNewspaperInCharge
 import org.frocu.news.mynot.Singletons.ImageLoaderVolley
 import org.frocu.news.mynot.Singletons.NewsItemList
+import org.frocu.news.mynot.Singletons.NewsItemList.news
 import org.frocu.news.mynot.Singletons.NewspapersList.newspapers
 import org.xml.sax.SAXException
 import java.io.IOException
@@ -96,9 +98,13 @@ class NewspapersActivity : AppCompatActivity() {
     }
 
     inner class AccessToNews: AsyncTask<String, Void, ArrayList<NewsItem>>() {
-
+        val mProgressDialog = ProgressDialog(this@NewspapersActivity)
         override fun onPreExecute() {
-
+            super.onPreExecute()
+            mProgressDialog.setMessage("Buscando...")
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            mProgressDialog.setCancelable(true)
+            mProgressDialog.show()
         }
 
         override fun onProgressUpdate(vararg values: Void) {
@@ -106,7 +112,7 @@ class NewspapersActivity : AppCompatActivity() {
         }
 
         override fun doInBackground(vararg params: String): ArrayList<NewsItem> {
-            NewsItemList.news.clear()
+            news.clear()
             try {
                 val factory = SAXParserFactory.newInstance()
                 val parser = factory.newSAXParser()
@@ -114,19 +120,34 @@ class NewspapersActivity : AppCompatActivity() {
                 Log.d("NewsItemActivity URL", "-" + params[0] + "-")
                 parser.parse(params[0], handler)
             } catch (e: ParserConfigurationException) {
-                Toast.makeText(applicationContext,"Error al cargar la página.", Toast.LENGTH_LONG).show()
+                news.clear()
+                if (mProgressDialog.isShowing) {
+                    mProgressDialog.dismiss()
+                }
+//                Toast.makeText(applicationContext,"Error al cargar la página.", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             } catch (e: SAXException) {
-                Toast.makeText(applicationContext,"Error al transformar la página.", Toast.LENGTH_LONG).show()
+                news.clear()
+                if (mProgressDialog.isShowing) {
+                    mProgressDialog.dismiss()
+                }
+//                Toast.makeText(applicationContext,"Error al transformar la página.", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             } catch (e: Exception) {
-                Toast.makeText(applicationContext,"Error al cargar la página.", Toast.LENGTH_LONG).show()
+                news.clear()
+                if (mProgressDialog.isShowing) {
+                    mProgressDialog.dismiss()
+                }
+//                Toast.makeText(applicationContext,"Error al cargar la página.", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             }
-            return NewsItemList.news
+            return news
         }
 
         override fun onPostExecute(news: ArrayList<NewsItem>) {
+            if (mProgressDialog.isShowing) {
+                mProgressDialog.dismiss()
+            }
             if(news.isNotEmpty()){
                 val intent = Intent(this@NewspapersActivity, NewsItemActivity::class.java)
                 startActivity(intent)

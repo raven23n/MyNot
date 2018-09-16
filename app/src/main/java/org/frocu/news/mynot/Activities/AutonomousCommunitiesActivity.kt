@@ -138,7 +138,8 @@ class AutonomousCommunitiesActivity : AppCompatActivity() {
         var countrySection = resources.getString(R.string.country_db)
         newspapersDatabase.readCCAANewspapers(country = countrySection,
                 autonomous_communities = autonomousCommunitySection,
-                newspapersListener = newspapersListener)
+                newspapersListener = newspapersListener,
+                context = this)
     }
 
     fun startNewspapersActivity(){
